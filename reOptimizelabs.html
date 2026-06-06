@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reOptimizelabs — ThinkUnthinkable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0e0f;
+    --ink-2: #3a3a3c;
+    --ink-3: #6e6e73;
+    --ink-4: #aeaeb2;
+    --surface: #fafaf8;
+    --surface-2: #f2f1ed;
+    --surface-3: #e8e6e0;
+    --accent: #1a1a2e;
+    --accent-2: #2d2d4e;
+    --gold: #c9a84c;
+    --gold-2: #e8c96a;
+    --teal: #0f6e56;
+    --purple: #534ab7;
+    --border: rgba(14,14,15,0.1);
+    --border-2: rgba(14,14,15,0.06);
+    --serif: 'DM Serif Display', serif;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-2);
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 12px; text-decoration: none;
+  }
+  .logo-mark {
+    width: 36px; height: 36px; background: var(--accent);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 6px);
+  }
+  .logo-mark span {
+    color: var(--gold); font-family: var(--serif); font-size: 14px; font-style: italic; z-index: 1;
+  }
+  .logo-name { font-size: 15px; font-weight: 500; color: var(--ink); letter-spacing: -0.3px; }
+  .logo-tagline { font-size: 10px; color: var(--ink-3); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; color: var(--ink-3); text-decoration: none; transition: color 0.2s;
+    font-weight: 400;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    font-size: 13px; font-weight: 500; padding: 8px 20px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius-pill); cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: var(--sans);
+  }
+  .nav-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 48px 80px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 24px;
+  }
+  .eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: var(--serif); font-size: 56px; line-height: 1.1;
+    letter-spacing: -1.5px; color: var(--ink); margin-bottom: 20px;
+    font-weight: 400;
+  }
+  .hero h1 em { color: var(--ink-3); font-style: italic; }
+
+  .hero-desc {
+    font-size: 16px; color: var(--ink-2); line-height: 1.75;
+    max-width: 460px; margin-bottom: 36px; font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-dark {
+    padding: 12px 28px; font-size: 14px; font-weight: 500;
+    background: var(--accent); color: #fff; border: none;
+    border-radius: var(--radius-pill); cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: var(--sans); text-decoration: none; display: inline-block;
+  }
+  .btn-dark:hover { background: var(--accent-2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 12px 28px; font-size: 14px;
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--border); border-radius: var(--radius-pill);
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    font-family: var(--sans); text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(14,14,15,0.25); background: var(--surface-2); }
+
+  /* Hero visual card */
+  .hero-visual {
+    background: var(--accent); border-radius: 20px; padding: 32px;
+    position: relative; overflow: hidden;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.02) 8px, rgba(255,255,255,0.02) 16px);
+  }
+  .hv-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+  .hv-product { font-family: var(--serif); font-size: 36px; color: #fff; margin-bottom: 6px; font-style: italic; }
+  .hv-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+  .hv-tag {
+    display: inline-block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--gold); color: var(--accent); border-radius: var(--radius-pill);
+    padding: 5px 14px; font-weight: 500;
+  }
+  .hv-dots {
+    display: flex; gap: 6px; margin-top: 28px;
+  }
+  .hv-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .hv-dot.active { background: var(--gold); }
+  .hv-stat-row { display: flex; gap: 16px; margin-top: 24px; }
+  .hv-stat { flex: 1; background: rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 12px; }
+  .hv-stat-n { font-family: var(--serif); font-size: 22px; color: #fff; }
+  .hv-stat-l { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.5px; }
+
+  /* ── DIVIDER ── */
+  .full-divider { border: none; border-top: 1px solid var(--border-2); margin: 0; }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 72px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-sm { padding: 56px 48px; max-width: 1100px; margin: 0 auto; }
+
+  .label {
+    font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-4);
+    margin-bottom: 10px; display: block;
+  }
+  .section-head {
+    font-family: var(--serif); font-size: 36px; font-weight: 400;
+    letter-spacing: -0.8px; color: var(--ink); margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 15px; color: var(--ink-3); line-height: 1.75; max-width: 520px;
+    font-weight: 300; margin-bottom: 44px;
+  }
+
+  /* ── FEATURED PRODUCT ── */
+  .featured {
+    border: 1px solid var(--border); border-radius: 20px;
+    overflow: hidden; background: var(--surface);
+    transition: box-shadow 0.3s;
+  }
+  .featured:hover { box-shadow: 0 16px 48px rgba(14,14,15,0.08); }
+
+  .featured-top {
+    background: var(--accent); padding: 40px 44px; display: flex;
+    justify-content: space-between; align-items: flex-start; gap: 24px;
+    position: relative; overflow: hidden;
+  }
+  .featured-top::after {
+    content: 'Ghoshla'; font-family: var(--serif); font-size: 160px;
+    font-style: italic; color: rgba(255,255,255,0.03);
+    position: absolute; right: -20px; bottom: -30px;
+    line-height: 1; pointer-events: none; letter-spacing: -4px;
+  }
+  .ft-name { font-family: var(--serif); font-size: 44px; color: #fff; font-style: italic; margin-bottom: 6px; }
+  .ft-tagline { font-size: 14px; color: rgba(255,255,255,0.5); letter-spacing: 0.3px; }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius-pill); padding: 7px 18px;
+    font-size: 11px; color: rgba(255,255,255,0.8); letter-spacing: 1.5px;
+    text-transform: uppercase; white-space: nowrap; margin-top: 6px;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s ease-in-out infinite; }
+
+  .featured-body { padding: 36px 44px; }
+  .product-desc { font-size: 15px; color: var(--ink-2); line-height: 1.8; margin-bottom: 32px; font-weight: 300; max-width: 580px; }
+
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .feat-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface-2); border-radius: var(--radius); padding: 16px;
+    border: 1px solid var(--border-2);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .feat-item:hover { border-color: var(--border); background: var(--surface); }
+  .feat-icon {
+    width: 32px; height: 32px; flex-shrink: 0; border-radius: var(--radius-sm);
+    background: var(--accent); display: flex; align-items: center; justify-content: center;
+  }
+  .feat-icon svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.8); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .feat-text-head { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .feat-text-sub { font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+
+  .product-actions { display: flex; gap: 12px; }
+
+  /* ── LINEUP ── */
+  .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lineup-card {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px 28px 24px; position: relative; overflow: hidden;
+    background: var(--surface); transition: box-shadow 0.3s, transform 0.2s;
+  }
+  .lineup-card:hover { box-shadow: 0 8px 32px rgba(14,14,15,0.07); transform: translateY(-2px); }
+  .lineup-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .card-purple::before { background: linear-gradient(90deg, var(--purple), #9b8eef); }
+  .card-teal::before { background: linear-gradient(90deg, var(--teal), #2db38a); }
+  .lineup-card-bg {
+    position: absolute; right: -20px; bottom: -20px; font-family: var(--serif);
+    font-size: 80px; color: rgba(14,14,15,0.04); pointer-events: none; font-style: italic;
+    letter-spacing: -2px;
+  }
+  .coming-tag {
+    display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-4); border: 1px solid var(--border); border-radius: var(--radius-pill);
+    padding: 4px 12px; margin-bottom: 20px;
+  }
+  .lineup-name { font-family: var(--serif); font-size: 26px; font-style: italic; color: var(--ink); margin-bottom: 8px; }
+  .lineup-desc { font-size: 13px; color: var(--ink-3); line-height: 1.65; font-weight: 300; }
+
+  /* ── MANIFESTO ── */
+  .manifesto-wrap { background: var(--accent); margin: 0; padding: 72px 48px; position: relative; overflow: hidden; }
+  .manifesto-wrap::before {
+    content: 'ThinkUnthinkable'; font-family: var(--serif); font-size: 120px; font-style: italic;
+    color: rgba(255,255,255,0.025); position: absolute; left: -10px; bottom: -20px;
+    letter-spacing: -3px; pointer-events: none;
+  }
+  .manifesto-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; }
+  .manifesto-icon { font-size: 28px; margin-bottom: 20px; }
+  .manifesto-inner h2 {
+    font-family: var(--serif); font-size: 36px; color: #fff;
+    font-weight: 400; font-style: italic; letter-spacing: -0.8px; margin-bottom: 18px;
+  }
+  .manifesto-inner p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; }
+  .manifesto-pillars {
+    display: flex; gap: 1px; margin-top: 44px;
+    background: rgba(255,255,255,0.08); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .pillar {
+    flex: 1; padding: 20px; background: rgba(255,255,255,0.03); text-align: center;
+    transition: background 0.2s;
+  }
+  .pillar:hover { background: rgba(255,255,255,0.07); }
+  .pillar-n { font-family: var(--serif); font-size: 28px; color: var(--gold); font-style: italic; }
+  .pillar-l { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── LINKEDIN ── */
+  .li-outer { max-width: 620px; margin: 0 auto; }
+  .li-section-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 20px; display: block; }
+
+  .li-card {
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    background: #fff; box-shadow: 0 2px 12px rgba(14,14,15,0.06);
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+  }
+  .li-cover { height: 112px; background: var(--accent); position: relative; overflow: hidden; }
+  .li-cover-tex {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(201,168,76,0.06) 8px, rgba(201,168,76,0.06) 16px);
+  }
+  .li-logo {
+    width: 76px; height: 76px; border-radius: 12px; background: var(--accent);
+    border: 4px solid #fff; display: flex; align-items: center; justify-content: center;
+    margin-left: 20px; margin-top: -38px; position: relative;
+  }
+  .li-logo span { font-family: var(--serif); color: var(--gold); font-size: 20px; font-style: italic; }
+
+  .li-head { padding: 8px 20px 16px; border-bottom: 1px solid #e0ddd6; }
+  .li-name { font-size: 18px; font-weight: 600; color: #000; margin-bottom: 2px; }
+  .li-sub { font-size: 13px; color: #555; margin-bottom: 8px; }
+  .li-meta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .li-meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #0a66c2; }
+  .li-meta-item svg { width: 13px; height: 13px; stroke: #0a66c2; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+
+  .li-btns { padding: 12px 20px 14px; display: flex; gap: 10px; border-bottom: 1px solid #e0ddd6; }
+  .li-follow {
+    padding: 6px 20px; font-size: 13px; font-weight: 600; border-radius: 20px;
+    background: #0a66c2; color: #fff; border: none; cursor: pointer; font-family: inherit;
+  }
+  .li-follow:hover { background: #004182; }
+  .li-visit {
+    padding: 6px 20px; font-size: 13px; font-weight: 600; border-radius: 20px;
+    background: transparent; color: #0a66c2; border: 1.5px solid #0a66c2; cursor: pointer; font-family: inherit;
+  }
+  .li-visit:hover { background: #e8f0fa; }
+
+  .li-about { padding: 16px 20px; border-bottom: 1px solid #e0ddd6; }
+  .li-sec-title { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 8px; }
+  .li-about-txt { font-size: 13px; color: #555; line-height: 1.65; }
+  .li-about-txt strong { color: #000; }
+
+  .li-products-sec { padding: 16px 20px; }
+  .li-prod-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid #f0ede7; }
+  .li-prod-row:last-child { border-bottom: none; }
+  .li-prod-icon {
+    width: 44px; height: 44px; border-radius: 8px; background: #f2f1ed;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .li-prod-icon svg { width: 20px; height: 20px; stroke: #555; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+  .li-prod-name { font-size: 14px; font-weight: 600; color: #000; }
+  .li-prod-desc { font-size: 12px; color: #888; margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px; border-top: 1px solid var(--border-2);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-copy { font-size: 12px; color: var(--ink-4); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: var(--ink-4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink-3); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 16px; }
+    .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; gap: 40px; }
+    .hero h1 { font-size: 38px; }
+    .hero-visual { display: none; }
+    .section, .section-sm { padding: 48px 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .lineup-grid { grid-template-columns: 1fr; }
+    .featured-top { flex-direction: column; }
+    footer { padding: 24px; }
+    .manifesto-wrap { padding: 56px 24px; }
+    .manifesto-wrap::before { font-size: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-mark"><span>rO</span></div>
+    <div>
+      <div class="logo-name">reOptimizelabs</div>
+      <div class="logo-tagline">ThinkUnthinkable</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#products">Products</a>
+    <a href="#manifesto">Research</a>
+    <a href="#about">About</a>
+    <button class="nav-cta">Get early access</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span> First product — now live</div>
+    <h1>We fix what others<br><em>decided to live with</em></h1>
+    <p class="hero-desc">Systems break quietly. Workflows calcify. Assumptions compound. reOptimizelabs rebuilds from first principles — researching from scratch, questioning what feels settled, optimizing what others stopped questioning.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-dark">Explore Ghoshla →</a>
+      <a href="#manifesto" class="btn-ghost">Read our manifesto</a>
+    </div>
+  </div>
+  <div class="hero-visual" role="img" aria-label="Ghoshla product preview card">
+    <div class="hv-label">First product</div>
+    <div class="hv-product">Ghoshla</div>
+    <div class="hv-sub">Find your next nest</div>
+    <div class="hv-tag">Live now</div>
+    <div class="hv-stat-row">
+      <div class="hv-stat">
+        <div class="hv-stat-n">1k+</div>
+        <div class="hv-stat-l">Listings</div>
+      </div>
+      <div class="hv-stat">
+        <div class="hv-stat-n">3</div>
+        <div class="hv-stat-l">Cities</div>
+      </div>
+      <div class="hv-stat">
+        <div class="hv-stat-n">∞</div>
+        <div class="hv-stat-l">Filters</div>
+      </div>
+    </div>
+    <div class="hv-dots">
+      <div class="hv-dot active"></div>
+      <div class="hv-dot"></div>
+      <div class="hv-dot"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- PRODUCTS -->
+<div id="products">
+  <div class="section">
+    <span class="label">What we're building</span>
+    <h2 class="section-head reveal">Our products</h2>
+    <p class="section-sub reveal reveal-delay-1">Each product is a direct response to a problem we found unacceptably unsolved. We ship only when we've rebuilt the thinking, not just the interface.</p>
+
+    <!-- GHOSHLA -->
+    <div class="featured reveal reveal-delay-2">
+      <div class="featured-top">
+        <div>
+          <div class="ft-name">Ghoshla</div>
+          <div class="ft-tagline">Find your next nest</div>
+        </div>
+        <div class="live-badge"><span class="live-dot"></span> Live now</div>
+      </div>
+      <div class="featured-body">
+        <p class="product-desc">The rental and housing search experience is broken — fragmented listings, opaque pricing, and zero contextual intelligence. Ghoshla rebuilds home discovery from scratch, making the search feel like a conversation, not a scroll through noise.</p>
+        <div class="features-grid">
+          <div class="feat-item">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+            <div>
+              <div class="feat-text-head">Context-aware discovery</div>
+              <div class="feat-text-sub">Neighbourhood intelligence built into every search</div>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <div>
+              <div class="feat-text-head">Price trend transparency</div>
+              <div class="feat-text-sub">Historical pricing data — no more guessing</div>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="feat-text-head">Filters that make sense</div>
+              <div class="feat-text-sub">Built around how people actually decide</div>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <div>
+              <div class="feat-text-head">Smart inventory alerts</div>
+              <div class="feat-text-sub">Get notified the moment the right place appears</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <a href="#" class="btn-dark">Try Ghoshla →</a>
+          <a href="#" class="btn-ghost">Learn more</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINEUP -->
+    <div style="margin-top: 48px; margin-bottom: 18px;">
+      <span class="label">Coming next</span>
+    </div>
+    <div class="lineup-grid">
+      <div class="lineup-card card-purple reveal reveal-delay-1">
+        <div class="lineup-card-bg">GathrX</div>
+        <div class="coming-tag">Coming soon</div>
+        <div class="lineup-name">GathrX</div>
+        <p class="lineup-desc">Rethinking how people coordinate around shared intent — events, communities, and collective momentum rebuilt from the ground up.</p>
+      </div>
+      <div class="lineup-card card-teal reveal reveal-delay-2">
+        <div class="lineup-card-bg">Extra</div>
+        <div class="coming-tag">Coming soon</div>
+        <div class="lineup-name">ExtraWork</div>
+        <p class="lineup-desc">The gig and side-work landscape is noise. ExtraWork connects genuine effort to genuine opportunity — no algorithm theatre, no dark patterns.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- MANIFESTO -->
+<div class="manifesto-wrap" id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-icon">⟁</div>
+    <h2>Research from scratch.<br>Optimize from conviction.</h2>
+    <p>We don't patch what's broken. We trace the break back to its origin, rebuild the model, and ship something that holds. Every product starts with a question we refused to stop asking.</p>
+    <div class="manifesto-pillars">
+      <div class="pillar">
+        <div class="pillar-n">01</div>
+        <div class="pillar-l">Question</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-n">02</div>
+        <div class="pillar-l">Rebuild</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-n">03</div>
+        <div class="pillar-l">Optimize</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-n">04</div>
+        <div class="pillar-l">Ship</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- LINKEDIN -->
+<div class="section-sm" id="about">
+  <div class="li-outer">
+    <span class="li-section-label label">LinkedIn company page</span>
+    <div class="li-card reveal">
+      <div class="li-cover"><div class="li-cover-tex"></div></div>
+      <div style="padding: 0 0 0 0;">
+        <div style="padding: 0 20px;">
+          <div class="li-logo"><span>rO</span></div>
+        </div>
+        <div class="li-head">
+          <div class="li-name">reOptimizelabs</div>
+          <div class="li-sub">Technology &amp; Research · Building broken systems back to life</div>
+          <div class="li-meta-row">
+            <div class="li-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              India
+            </div>
+            <div class="li-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              2–10 employees
+            </div>
+            <div class="li-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              reoptimize.io
+            </div>
+          </div>
+        </div>
+        <div class="li-btns">
+          <button class="li-follow">+ Follow</button>
+          <button class="li-visit">Visit website</button>
+        </div>
+        <div class="li-about">
+          <div class="li-sec-title">About</div>
+          <div class="li-about-txt">
+            reOptimizelabs builds and fixes broken systems. We research from scratch, challenge inherited assumptions, and optimize the things that feel wrong but nobody questions anymore. Our products are born from first principles — not market maps.<br><br>
+            <strong>ThinkUnthinkable</strong> — our founding conviction that the best solutions live just beyond the edge of what people assumed was possible.<br><br>
+            First product: <strong>Ghoshla</strong> — find your next nest. A reimagined home discovery experience that puts context, clarity, and intelligence back into housing search.
+          </div>
+        </div>
+        <div class="li-products-sec">
+          <div class="li-sec-title">Products</div>
+          <div class="li-prod-row">
+            <div class="li-prod-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <div class="li-prod-name">Ghoshla</div>
+              <div class="li-prod-desc">Find your next nest · Home discovery, rebuilt · Live now</div>
+            </div>
+          </div>
+          <div class="li-prod-row">
+            <div class="li-prod-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <div class="li-prod-name">GathrX</div>
+              <div class="li-prod-desc">Collective coordination, rethought · Coming soon</div>
+            </div>
+          </div>
+          <div class="li-prod-row">
+            <div class="li-prod-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div>
+              <div class="li-prod-name">ExtraWork</div>
+              <div class="li-prod-desc">Side-work meets real opportunity · Coming soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">
+      <div class="logo-mark" style="width:28px;height:28px;"><span style="font-size:12px;">rO</span></div>
+      <span style="font-size:13px;font-weight:500;color:var(--ink-2);">reOptimizelabs</span>
+    </div>
+    <div class="footer-copy" style="margin-top:6px;">© 2025 reOptimizelabs. All rights reserved.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Twitter</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
