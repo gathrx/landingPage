@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>reOptimizelabs — ThinkUnthinkable</title>
+<title>ReOptimizeLabs — ThinkUnthinkable</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,6 +28,7 @@
     --border-2: rgba(14,14,15,0.06);
     --serif: 'DM Serif Display', serif;
     --sans: 'DM Sans', sans-serif;
+    --pixel: 'Press Start 2P', ui-monospace, 'SFMono-Regular', Consolas, monospace;
     --radius: 12px;
     --radius-sm: 8px;
     --radius-pill: 100px;
@@ -56,10 +57,10 @@
   }
 
   .logo {
-    display: flex; align-items: center; gap: 12px; text-decoration: none;
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
   }
   .logo-mark {
-    width: 36px; height: 36px; background: var(--accent);
+    width: 36px; height: 36px; background: #000;
     border-radius: var(--radius-sm);
     display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden;
@@ -69,10 +70,14 @@
     position: absolute; inset: 0;
     background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 6px);
   }
-  .logo-mark span {
-    color: var(--gold); font-family: var(--serif); font-size: 14px; font-style: italic; z-index: 1;
+  .logo-mark img {
+    width: 178%; height: 178%; object-fit: cover; display: block;
   }
-  .logo-name { font-size: 15px; font-weight: 500; color: var(--ink); letter-spacing: -0.3px; }
+  .logo-name {
+    font-family: var(--pixel); font-size: 10px; font-weight: 400; color: var(--ink);
+    letter-spacing: 0; line-height: 1.4; text-transform: uppercase;
+    text-shadow: 1px 1px 0 var(--surface-3);
+  }
   .logo-tagline { font-size: 10px; color: var(--ink-3); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
 
   .nav-links { display: flex; align-items: center; gap: 32px; }
@@ -113,11 +118,13 @@
   }
 
   .hero h1 {
-    font-family: var(--serif); font-size: 56px; line-height: 1.1;
-    letter-spacing: -1.5px; color: var(--ink); margin-bottom: 20px;
+    font-family: var(--pixel); font-size: 34px; line-height: 1.45;
+    letter-spacing: 0; color: var(--ink); margin-bottom: 24px;
     font-weight: 400;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 var(--surface-3);
   }
-  .hero h1 em { color: var(--ink-3); font-style: italic; }
+  .hero h1 em { color: var(--ink-3); font-style: normal; }
 
   .hero-desc {
     font-size: 16px; color: var(--ink-2); line-height: 1.75;
@@ -189,8 +196,10 @@
     margin-bottom: 10px; display: block;
   }
   .section-head {
-    font-family: var(--serif); font-size: 36px; font-weight: 400;
-    letter-spacing: -0.8px; color: var(--ink); margin-bottom: 14px;
+    font-family: var(--pixel); font-size: 22px; font-weight: 400;
+    letter-spacing: 0; color: var(--ink); margin-bottom: 18px;
+    line-height: 1.55; text-transform: uppercase;
+    text-shadow: 2px 2px 0 var(--surface-3);
   }
   .section-sub {
     font-size: 15px; color: var(--ink-3); line-height: 1.75; max-width: 520px;
@@ -286,8 +295,10 @@
   .manifesto-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; }
   .manifesto-icon { font-size: 28px; margin-bottom: 20px; }
   .manifesto-inner h2 {
-    font-family: var(--serif); font-size: 36px; color: #fff;
-    font-weight: 400; font-style: italic; letter-spacing: -0.8px; margin-bottom: 18px;
+    font-family: var(--pixel); font-size: 23px; color: #fff;
+    font-weight: 400; font-style: normal; letter-spacing: 0; margin-bottom: 22px;
+    line-height: 1.6; text-transform: uppercase;
+    text-shadow: 3px 3px 0 rgba(201,168,76,0.35);
   }
   .manifesto-inner p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; }
   .manifesto-pillars {
@@ -318,14 +329,17 @@
     background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(201,168,76,0.06) 8px, rgba(201,168,76,0.06) 16px);
   }
   .li-logo {
-    width: 76px; height: 76px; border-radius: 12px; background: var(--accent);
+    width: 76px; height: 76px; border-radius: 12px; background: #000;
     border: 4px solid #fff; display: flex; align-items: center; justify-content: center;
-    margin-left: 20px; margin-top: -38px; position: relative;
+    margin-left: 20px; margin-top: -38px; position: relative; overflow: hidden;
   }
-  .li-logo span { font-family: var(--serif); color: var(--gold); font-size: 20px; font-style: italic; }
+  .li-logo img { width: 178%; height: 178%; object-fit: cover; display: block; }
 
   .li-head { padding: 8px 20px 16px; border-bottom: 1px solid #e0ddd6; }
-  .li-name { font-size: 18px; font-weight: 600; color: #000; margin-bottom: 2px; }
+  .li-name {
+    font-family: var(--pixel); font-size: 12px; font-weight: 400; color: #000;
+    line-height: 1.5; margin-bottom: 5px; text-transform: uppercase;
+  }
   .li-sub { font-size: 13px; color: #555; margin-bottom: 8px; }
   .li-meta-row { display: flex; gap: 16px; flex-wrap: wrap; }
   .li-meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #0a66c2; }
@@ -395,6 +409,10 @@
     flex-wrap: wrap;
   }
   .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand-name {
+    font-family: var(--pixel); font-size: 9px; font-weight: 400; color: var(--ink-2);
+    line-height: 1.4; text-transform: uppercase;
+  }
   .footer-copy { font-size: 12px; color: var(--ink-4); }
   .footer-links { display: flex; gap: 24px; }
   .footer-links a { font-size: 12px; color: var(--ink-4); text-decoration: none; transition: color 0.2s; }
@@ -412,7 +430,9 @@
     nav { padding: 16px 24px; }
     .nav-links { gap: 16px; }
     .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; gap: 40px; }
-    .hero h1 { font-size: 38px; }
+    .hero h1 { font-size: 22px; line-height: 1.55; }
+    .section-head { font-size: 17px; }
+    .manifesto-inner h2 { font-size: 16px; }
     .hero-visual { display: none; }
     .section, .section-sm { padding: 48px 24px; }
     .features-grid { grid-template-columns: 1fr; }
@@ -430,9 +450,9 @@
 <!-- NAV -->
 <nav>
   <a class="logo" href="#">
-    <div class="logo-mark"><span>rO</span></div>
+    <div class="logo-mark"><img src="logo.jpeg" alt="ReOptimizeLabs logo"></div>
     <div>
-      <div class="logo-name">reOptimizelabs</div>
+      <div class="logo-name">ReOptimizeLabs</div>
       <div class="logo-tagline">ThinkUnthinkable</div>
     </div>
   </a>
@@ -450,7 +470,7 @@
   <div class="hero-left">
     <div class="hero-eyebrow"><span class="eyebrow-dot"></span> First product — now live</div>
     <h1>We fix what others<br><em>decided to live with</em></h1>
-    <p class="hero-desc">Systems break quietly. Workflows calcify. Assumptions compound. reOptimizelabs rebuilds from first principles — researching from scratch, questioning what feels settled, optimizing what others stopped questioning.</p>
+    <p class="hero-desc">Systems break quietly. Workflows calcify. Assumptions compound. ReOptimizeLabs rebuilds from first principles — researching from scratch, questioning what feels settled, optimizing what others stopped questioning.</p>
     <div class="hero-actions">
       <a href="https://www.ghoshla.com/" class="btn-dark" target="_blank" rel="noopener noreferrer">Explore Ghoshla →</a>
       <a href="#manifesto" class="btn-ghost">Read our manifesto</a>
@@ -608,10 +628,10 @@
       <div class="li-cover"><div class="li-cover-tex"></div></div>
       <div style="padding: 0 0 0 0;">
         <div style="padding: 0 20px;">
-          <div class="li-logo"><span>rO</span></div>
+          <div class="li-logo"><img src="logo.jpeg" alt="ReOptimizeLabs logo"></div>
         </div>
         <div class="li-head">
-          <div class="li-name">reOptimizelabs</div>
+          <div class="li-name">ReOptimizeLabs</div>
           <div class="li-sub">Technology &amp; Research · Building broken systems back to life</div>
           <div class="li-meta-row">
             <div class="li-meta-item">
@@ -635,7 +655,7 @@
         <div class="li-about">
           <div class="li-sec-title">About</div>
           <div class="li-about-txt">
-            reOptimizelabs builds and fixes broken systems. We research from scratch, challenge inherited assumptions, and optimize the things that feel wrong but nobody questions anymore. Our products are born from first principles — not market maps.<br><br>
+            ReOptimizeLabs builds and fixes broken systems. We research from scratch, challenge inherited assumptions, and optimize the things that feel wrong but nobody questions anymore. Our products are born from first principles — not market maps.<br><br>
             <strong>ThinkUnthinkable</strong> — our founding conviction that the best solutions live just beyond the edge of what people assumed was possible.<br><br>
             First product: <strong>Ghoshla</strong> — find your next nest. A reimagined home discovery experience that puts context, clarity, and intelligence back into housing search.
           </div>
@@ -679,11 +699,11 @@
 
 <!-- SOCIAL -->
 <div class="section-sm social-section" id="social">
-  <span class="label">Follow reOptimizelabs</span>
+  <span class="label">Follow ReOptimizeLabs</span>
   <h2 class="section-head reveal">Stay close to what we're building</h2>
   <p class="section-sub reveal reveal-delay-1">Follow our product launches, research notes, and behind-the-scenes experiments across social channels.</p>
   <div class="social-grid">
-    <a class="social-card reveal reveal-delay-1" href="https://www.instagram.com/reoptimizelabs/" target="_blank" rel="noopener noreferrer" aria-label="Follow reOptimizelabs on Instagram">
+    <a class="social-card reveal reveal-delay-1" href="https://www.instagram.com/reoptimizelabs/" target="_blank" rel="noopener noreferrer" aria-label="Follow ReOptimizeLabs on Instagram">
       <div class="social-icon social-instagram">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-2.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg>
       </div>
@@ -692,7 +712,7 @@
         <div class="social-handle">@reoptimizelabs</div>
       </div>
     </a>
-    <a class="social-card reveal reveal-delay-2" href="https://www.linkedin.com/company/reoptimizelabs/" target="_blank" rel="noopener noreferrer" aria-label="Follow reOptimizelabs on LinkedIn">
+    <a class="social-card reveal reveal-delay-2" href="https://www.linkedin.com/company/reoptimizelabs/" target="_blank" rel="noopener noreferrer" aria-label="Follow ReOptimizeLabs on LinkedIn">
       <div class="social-icon social-linkedin">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.4 8h4.2v13H.4V8Zm7.1 0h4.02v1.78h.06c.56-1.06 1.94-2.18 3.99-2.18C19.84 7.6 21 10.41 21 14.06V21h-4.2v-6.15c0-1.47-.03-3.36-2.05-3.36-2.05 0-2.36 1.6-2.36 3.25V21H7.5V8Z"/></svg>
       </div>
@@ -701,7 +721,7 @@
         <div class="social-handle">company/reoptimizelabs</div>
       </div>
     </a>
-    <a class="social-card reveal reveal-delay-3" href="https://x.com/reoptimizelabs" target="_blank" rel="noopener noreferrer" aria-label="Follow reOptimizelabs on X">
+    <a class="social-card reveal reveal-delay-3" href="https://x.com/reoptimizelabs" target="_blank" rel="noopener noreferrer" aria-label="Follow ReOptimizeLabs on X">
       <div class="social-icon social-x">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2h3.68l-8.04 9.19L24 22h-7.4l-5.8-7.58L4.17 22H.49l8.6-9.83L0 2h7.59l5.24 6.93L18.9 2Zm-1.29 18.1h2.04L6.48 3.8H4.29L17.61 20.1Z"/></svg>
       </div>
@@ -717,10 +737,10 @@
 <footer>
   <div>
     <div class="footer-brand">
-      <div class="logo-mark" style="width:28px;height:28px;"><span style="font-size:12px;">rO</span></div>
-      <span style="font-size:13px;font-weight:500;color:var(--ink-2);">reOptimizelabs</span>
+      <div class="logo-mark" style="width:28px;height:28px;"><img src="logo.jpeg" alt="ReOptimizeLabs logo"></div>
+      <span class="footer-brand-name">ReOptimizeLabs</span>
     </div>
-    <div class="footer-copy" style="margin-top:6px;">© 2025 reOptimizelabs. All rights reserved.</div>
+    <div class="footer-copy" style="margin-top:6px;">© 2025 ReOptimizeLabs. All rights reserved.</div>
   </div>
   <div class="footer-links">
     <a href="#">Privacy</a>
