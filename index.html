@@ -217,6 +217,8 @@
     line-height: 1; pointer-events: none; letter-spacing: -4px;
   }
   .ft-name { font-family: var(--serif); font-size: 44px; color: #fff; font-style: italic; margin-bottom: 6px; }
+  a.ft-name { display: inline-block; text-decoration: none; transition: color 0.2s; }
+  a.ft-name:hover { color: var(--gold-2); }
   .ft-tagline { font-size: 14px; color: rgba(255,255,255,0.5); letter-spacing: 0.3px; }
   .live-badge {
     display: inline-flex; align-items: center; gap: 7px;
@@ -357,10 +359,12 @@
   }
   .li-prod-icon svg { width: 20px; height: 20px; stroke: #555; fill: none; stroke-width: 1.5; stroke-linecap: round; }
   .li-prod-name { font-size: 14px; font-weight: 600; color: #000; }
+  a.li-prod-name { display: inline-block; text-decoration: none; transition: color 0.2s; }
+  a.li-prod-name:hover { color: #0a66c2; }
   .li-prod-desc { font-size: 12px; color: #888; margin-top: 2px; }
 
   /* ── SOCIAL ── */
-  .social-section { padding-top: 0; }
+  .social-section { text-align: left; }
   .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .social-card {
     display: flex; align-items: center; gap: 14px;
@@ -448,7 +452,7 @@
     <h1>We fix what others<br><em>decided to live with</em></h1>
     <p class="hero-desc">Systems break quietly. Workflows calcify. Assumptions compound. reOptimizelabs rebuilds from first principles — researching from scratch, questioning what feels settled, optimizing what others stopped questioning.</p>
     <div class="hero-actions">
-      <a href="#products" class="btn-dark">Explore Ghoshla →</a>
+      <a href="https://www.ghoshla.com/" class="btn-dark" target="_blank" rel="noopener noreferrer">Explore Ghoshla →</a>
       <a href="#manifesto" class="btn-ghost">Read our manifesto</a>
     </div>
   </div>
@@ -492,7 +496,7 @@
     <div class="featured reveal reveal-delay-2">
       <div class="featured-top">
         <div>
-          <div class="ft-name">Ghoshla</div>
+          <a class="ft-name" href="https://www.ghoshla.com/" target="_blank" rel="noopener noreferrer">Ghoshla</a>
           <div class="ft-tagline">Find your next nest</div>
         </div>
         <div class="live-badge"><span class="live-dot"></span> Live now</div>
@@ -538,8 +542,8 @@
           </div>
         </div>
         <div class="product-actions">
-          <a href="#" class="btn-dark">Try Ghoshla →</a>
-          <a href="#" class="btn-ghost">Learn more</a>
+          <a href="https://www.ghoshla.com/" class="btn-dark" target="_blank" rel="noopener noreferrer">Try Ghoshla →</a>
+          <a href="https://www.ghoshla.com/" class="btn-ghost" target="_blank" rel="noopener noreferrer">Learn more</a>
         </div>
       </div>
     </div>
@@ -643,7 +647,7 @@
               <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </div>
             <div>
-              <div class="li-prod-name">Ghoshla</div>
+              <a class="li-prod-name" href="https://www.ghoshla.com/" target="_blank" rel="noopener noreferrer">Ghoshla</a>
               <div class="li-prod-desc">Find your next nest · Home discovery, rebuilt · Live now</div>
             </div>
           </div>
@@ -670,6 +674,8 @@
     </div>
   </div>
 </div>
+
+<hr class="full-divider">
 
 <!-- SOCIAL -->
 <div class="section-sm social-section" id="social">
@@ -718,7 +724,7 @@
   </div>
   <div class="footer-links">
     <a href="#">Privacy</a>
-    <a href="#">Contact</a>
+    <a href="#social">Contact</a>
     <a href="https://www.instagram.com/reoptimizelabs/" target="_blank" rel="noopener noreferrer">Instagram</a>
     <a href="https://www.linkedin.com/company/reoptimizelabs/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://x.com/reoptimizelabs" target="_blank" rel="noopener noreferrer">X</a>
