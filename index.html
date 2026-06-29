@@ -71,7 +71,7 @@
     background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 6px);
   }
   .logo-mark img {
-    width: 178%; height: 178%; object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: contain; display: block;
   }
   .logo-name {
     font-family: var(--pixel); font-size: 10px; font-weight: 400; color: var(--ink);
@@ -86,15 +86,6 @@
     font-weight: 400;
   }
   .nav-links a:hover { color: var(--ink); }
-
-  .nav-cta {
-    font-size: 13px; font-weight: 500; padding: 8px 20px;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: var(--radius-pill); cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    font-family: var(--sans);
-  }
-  .nav-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero {
@@ -333,7 +324,7 @@
     border: 4px solid #fff; display: flex; align-items: center; justify-content: center;
     margin-left: 20px; margin-top: -38px; position: relative; overflow: hidden;
   }
-  .li-logo img { width: 178%; height: 178%; object-fit: cover; display: block; }
+  .li-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
   .li-head { padding: 8px 20px 16px; border-bottom: 1px solid #e0ddd6; }
   .li-name {
@@ -461,7 +452,6 @@
     <a href="#manifesto">Research</a>
     <a href="#about">About</a>
     <a href="#social">Follow</a>
-    <button class="nav-cta">Get early access</button>
   </div>
 </nav>
 
@@ -744,7 +734,7 @@
   </div>
   <div class="footer-links">
     <a href="#">Privacy</a>
-    <a href="#social">Contact</a>
+    <a href="https://t.me/ThinkUnthinkable" target="_blank" rel="noopener noreferrer">Contact</a>
     <a href="https://www.instagram.com/reoptimizelabs/" target="_blank" rel="noopener noreferrer">Instagram</a>
     <a href="https://www.linkedin.com/company/reoptimizelabs/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://x.com/reoptimizelabs" target="_blank" rel="noopener noreferrer">X</a>
