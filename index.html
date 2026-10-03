@@ -251,7 +251,7 @@
   .product-actions { display: flex; gap: 12px; }
 
   /* ── LINEUP ── */
-  .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lineup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .lineup-card {
     border: 1px solid var(--border); border-radius: var(--radius);
     padding: 28px 28px 24px; position: relative; overflow: hidden;
@@ -263,6 +263,7 @@
   }
   .card-purple::before { background: linear-gradient(90deg, var(--purple), #9b8eef); }
   .card-teal::before { background: linear-gradient(90deg, var(--teal), #2db38a); }
+  .card-gold::before { background: linear-gradient(90deg, var(--gold), var(--gold-2)); }
   .lineup-card-bg {
     position: absolute; right: -20px; bottom: -20px; font-family: var(--serif);
     font-size: 80px; color: rgba(14,14,15,0.04); pointer-events: none; font-style: italic;
@@ -575,6 +576,12 @@
         <div class="lineup-name">ExtraWork</div>
         <p class="lineup-desc">The gig and side-work landscape is noise. ExtraWork connects genuine effort to genuine opportunity — no algorithm theatre, no dark patterns.</p>
       </div>
+      <div class="lineup-card card-gold reveal reveal-delay-3">
+        <div class="lineup-card-bg">Video</div>
+        <div class="coming-tag">Coming soon</div>
+        <div class="lineup-name">Video RAG</div>
+        <p class="lineup-desc">Advanced video search and intelligence. Stop watching hours of footage just to find a single moment. Uncover what matters instantly.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -677,6 +684,15 @@
             <div>
               <div class="li-prod-name">ExtraWork</div>
               <div class="li-prod-desc">Side-work meets real opportunity · Coming soon</div>
+            </div>
+          </div>
+          <div class="li-prod-row">
+            <div class="li-prod-icon">
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <div>
+              <div class="li-prod-name">Video RAG</div>
+              <div class="li-prod-desc">Advanced video search and intelligence · Coming soon</div>
             </div>
           </div>
         </div>
