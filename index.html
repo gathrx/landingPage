@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReOptimizeLabs — ThinkUnthinkable</title>
+<title>ReOptimizeLabs — VideoRag · Ask your cameras anything</title>
+<meta name="description" content="VideoRag by ReOptimizeLabs turns passive video into answers. Search any camera in plain language, set alerts on behavior, and get grounded answers linked to the exact clips.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -20,6 +21,7 @@
     --surface-3: #e8e6e0;
     --accent: #1a1a2e;
     --accent-2: #2d2d4e;
+    --night: #0d0d1a;
     --gold: #c9a84c;
     --gold-2: #e8c96a;
     --teal: #0f6e56;
@@ -29,6 +31,7 @@
     --serif: 'DM Serif Display', serif;
     --sans: 'DM Sans', sans-serif;
     --pixel: 'Press Start 2P', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+    --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
     --radius: 12px;
     --radius-sm: 8px;
     --radius-pill: 100px;
@@ -86,19 +89,28 @@
     font-weight: 400;
   }
   .nav-links a:hover { color: var(--ink); }
+  .nav-links a.nav-cta {
+    color: #fff; background: var(--accent); padding: 8px 18px;
+    border-radius: var(--radius-pill); font-weight: 500;
+    transition: background 0.2s;
+  }
+  .nav-links a.nav-cta:hover { background: var(--accent-2); color: #fff; }
 
   /* ── HERO ── */
   .hero {
-    padding: 100px 48px 80px;
+    padding: 88px 48px 48px;
     max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center;
+    text-align: center;
   }
 
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-3);
     margin-bottom: 24px;
+    padding: 7px 16px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+    background: #fff;
   }
+  .hero-eyebrow strong { color: var(--ink); font-weight: 500; }
   .eyebrow-dot {
     width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
     animation: pulse 2s ease-in-out infinite;
@@ -119,10 +131,10 @@
 
   .hero-desc {
     font-size: 16px; color: var(--ink-2); line-height: 1.75;
-    max-width: 460px; margin-bottom: 36px; font-weight: 300;
+    max-width: 580px; margin: 0 auto 36px; font-weight: 300;
   }
 
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
   .btn-dark {
     padding: 12px 28px; font-size: 14px; font-weight: 500;
@@ -142,38 +154,168 @@
   }
   .btn-ghost:hover { border-color: rgba(14,14,15,0.25); background: var(--surface-2); }
 
-  /* Hero visual card */
-  .hero-visual {
-    background: var(--accent); border-radius: 20px; padding: 32px;
-    position: relative; overflow: hidden;
-    animation: float 4s ease-in-out infinite;
+  .btn-gold {
+    padding: 12px 28px; font-size: 14px; font-weight: 500;
+    background: var(--gold-2); color: var(--accent); border: none;
+    border-radius: var(--radius-pill); cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: var(--sans); text-decoration: none; display: inline-block;
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+  .btn-gold:hover { background: #f1d784; transform: translateY(-1px); }
+
+  .btn-ghost-light {
+    padding: 12px 28px; font-size: 14px;
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-pill);
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    font-family: var(--sans); text-decoration: none; display: inline-block;
   }
-  .hero-visual::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.02) 8px, rgba(255,255,255,0.02) 16px);
+  .btn-ghost-light:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
+
+  /* ── VIDEORAG CONSOLE ── */
+  .hero-stage { max-width: 1100px; margin: 0 auto; padding: 0 48px 88px; }
+
+  .vr-console {
+    background: var(--night); color: #fff;
+    border-radius: 20px; overflow: hidden; position: relative;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 48px 120px -40px rgba(26,26,46,0.6), 0 0 0 1px rgba(14,14,15,0.05);
   }
-  .hv-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
-  .hv-product { font-family: var(--serif); font-size: 36px; color: #fff; margin-bottom: 6px; font-style: italic; }
-  .hv-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
-  .hv-tag {
-    display: inline-block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-    background: var(--gold); color: var(--accent); border-radius: var(--radius-pill);
-    padding: 5px 14px; font-weight: 500;
+  .vr-console::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 50% at 30% 0%, rgba(201,168,76,0.08), transparent 70%);
   }
-  .hv-dots {
-    display: flex; gap: 6px; margin-top: 28px;
+
+  .vr-bar {
+    display: flex; align-items: center; gap: 14px; position: relative;
+    padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px;
   }
-  .hv-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
-  .hv-dot.active { background: var(--gold); }
-  .hv-stat-row { display: flex; gap: 16px; margin-top: 24px; }
-  .hv-stat { flex: 1; background: rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 12px; }
-  .hv-stat-n { font-family: var(--serif); font-size: 22px; color: #fff; }
-  .hv-stat-l { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.5px; }
+  .vr-bar-dots { display: flex; gap: 6px; }
+  .vr-bar-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .vr-bar-title { flex: 1; }
+  .vr-bar-title b { color: rgba(255,255,255,0.85); font-weight: 500; }
+  .vr-bar-status { display: flex; align-items: center; gap: 7px; }
+
+  .vr-search {
+    position: relative;
+    margin: 16px 18px 0; display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius); padding: 14px 16px; min-height: 54px;
+    font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .vr-search.is-typing { border-color: rgba(201,168,76,0.55); box-shadow: 0 0 0 4px rgba(201,168,76,0.1); }
+  .vr-search > svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--gold-2); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .vr-query { color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .vr-query:empty::before { content: 'Describe what you’re looking for…'; color: rgba(255,255,255,0.3); }
+  .vr-caret { width: 2px; height: 18px; background: var(--gold-2); flex-shrink: 0; margin-left: -10px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .vr-kbd {
+    margin-left: auto; flex-shrink: 0; font-family: var(--mono); font-size: 11px;
+    border: 1px solid rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 6px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .vr-body { display: grid; grid-template-columns: 1fr 300px; gap: 16px; padding: 16px 18px 18px; position: relative; }
+
+  .vr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; position: relative; align-content: start; }
+  .vr-grid::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 5; opacity: 0;
+    background: linear-gradient(180deg, transparent, rgba(232,201,106,0.22) 50%, transparent) no-repeat;
+    background-size: 100% 35%;
+  }
+  .vr-grid.is-scanning::after { animation: scan 0.9s linear; }
+  @keyframes scan {
+    0% { opacity: 1; background-position: 0 -40%; }
+    100% { opacity: 1; background-position: 0 140%; }
+  }
+
+  .vr-cam {
+    position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-sm); overflow: hidden;
+    background: #111; transition: opacity 0.45s, filter 0.45s, box-shadow 0.3s;
+  }
+  .vr-cam svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .vr-cam::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px),
+      radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45));
+  }
+  .vr-cam.is-dim { opacity: 0.32; filter: grayscale(0.7); }
+  .vr-cam.is-hit { box-shadow: 0 0 0 2px var(--gold-2); }
+  .vr-cam-label, .vr-cam-rec, .vr-cam-time {
+    position: absolute; z-index: 2; font-family: var(--mono); font-size: 9px; line-height: 1.5;
+    padding: 1px 5px; border-radius: 3px; background: rgba(0,0,0,0.45);
+  }
+  .vr-cam-label { top: 6px; left: 6px; color: rgba(255,255,255,0.8); }
+  .vr-cam-rec { top: 6px; right: 6px; color: #ff7a7a; }
+  .vr-cam-time { bottom: 6px; left: 6px; color: rgba(255,255,255,0.6); }
+
+  .vr-box {
+    position: absolute; z-index: 3; border: 1.5px solid var(--gold-2); border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.35), 0 0 18px rgba(232,201,106,0.35);
+    animation: boxIn 0.35s ease both;
+  }
+  .vr-box-tag {
+    position: absolute; bottom: 100%; left: -1.5px; margin-bottom: 3px; white-space: nowrap;
+    font-family: var(--mono); font-size: 8.5px; font-weight: 600; line-height: 1.5;
+    background: var(--gold-2); color: var(--accent); padding: 0 5px; border-radius: 2px;
+  }
+  .vr-box.is-right .vr-box-tag { left: auto; right: -1.5px; }
+  @keyframes boxIn {
+    from { opacity: 0; transform: scale(1.25); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .vr-answer {
+    background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column;
+  }
+  .vr-answer-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4);
+  }
+  .vr-answer-head span:last-child { letter-spacing: 0.5px; text-transform: none; font-family: var(--mono); }
+  .vr-answer-text { font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,0.85); min-height: 88px; }
+  .vr-answer-text.is-idle { color: rgba(255,255,255,0.35); }
+  .vr-cite {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 16px; height: 16px; padding: 0 3px; margin: 0 1px; vertical-align: 1px;
+    font-family: var(--mono); font-size: 9px; font-weight: 600;
+    background: rgba(201,168,76,0.2); color: var(--gold-2); border-radius: 4px;
+  }
+  .vr-thinking { display: inline-flex; gap: 4px; }
+  .vr-thinking i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-2); animation: pulse 1s ease-in-out infinite; }
+  .vr-thinking i:nth-child(2) { animation-delay: 0.15s; }
+  .vr-thinking i:nth-child(3) { animation-delay: 0.3s; }
+
+  .vr-hits { margin-top: auto; padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .vr-hit {
+    display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center;
+    font-size: 11.5px; padding: 8px 10px; border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.04); animation: fadeUp 0.4s ease both;
+  }
+  .vr-hit .vr-cite { margin: 0; }
+  .vr-hit-cam { color: rgba(255,255,255,0.85); line-height: 1.35; }
+  .vr-hit-cam small { display: block; font-size: 10.5px; color: rgba(255,255,255,0.4); }
+  .vr-hit-t { font-family: var(--mono); font-size: 10.5px; color: var(--gold-2); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .vr-try {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;
+    margin-top: 20px;
+  }
+  .vr-try-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-4); margin-right: 4px; }
+  .vr-chip {
+    font-family: var(--sans); font-size: 12.5px; color: var(--ink-2);
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-pill);
+    padding: 7px 14px; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .vr-chip:hover { border-color: rgba(14,14,15,0.25); }
+  .vr-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
   /* ── DIVIDER ── */
   .full-divider { border: none; border-top: 1px solid var(--border-2); margin: 0; }
@@ -196,6 +338,129 @@
     font-size: 15px; color: var(--ink-3); line-height: 1.75; max-width: 520px;
     font-weight: 300; margin-bottom: 44px;
   }
+
+  /* ── VIDEORAG: CAPABILITIES ── */
+  .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .cap-card {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    padding: 28px; display: flex; flex-direction: column;
+    transition: box-shadow 0.3s, transform 0.2s;
+  }
+  .cap-card:hover { box-shadow: 0 8px 32px rgba(14,14,15,0.07); transform: translateY(-2px); }
+  .cap-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--accent);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 22px;
+  }
+  .cap-icon svg { width: 18px; height: 18px; stroke: var(--gold-2); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .cap-name { font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+  .cap-desc { font-size: 14px; color: var(--ink-3); line-height: 1.7; font-weight: 300; margin-bottom: 22px; }
+  .cap-query {
+    margin-top: auto; font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+    background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-sm);
+    padding: 10px 12px; line-height: 1.5;
+  }
+  .cap-query::before { content: '› '; color: var(--gold); font-weight: 700; }
+
+  /* ── VIDEORAG: COMPARE ── */
+  .dark-band { background: var(--accent); padding: 80px 48px; position: relative; overflow: hidden; }
+  .dark-band::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.015) 8px, rgba(255,255,255,0.015) 16px);
+  }
+  .dark-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .dark-band .label { color: rgba(255,255,255,0.35); }
+  .dark-band .section-head { color: #fff; text-shadow: 3px 3px 0 rgba(201,168,76,0.35); }
+  .dark-band .section-sub { color: rgba(255,255,255,0.55); }
+
+  .cmp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .cmp-card {
+    border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+  }
+  .cmp-card.is-vr { background: rgba(201,168,76,0.06); border-color: rgba(201,168,76,0.3); }
+  .cmp-title {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45);
+  }
+  .cmp-card.is-vr .cmp-title { color: var(--gold-2); }
+  .cmp-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 22px; }
+  .cmp-field {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-sm);
+    padding: 8px 10px; font-size: 12px; color: rgba(255,255,255,0.75);
+    display: flex; justify-content: space-between; gap: 6px;
+  }
+  .cmp-field small { display: block; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+  .cmp-field span:last-child { color: rgba(255,255,255,0.3); align-self: center; }
+  .cmp-prompt {
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(201,168,76,0.35); border-radius: var(--radius-sm);
+    padding: 12px 14px; margin-bottom: 22px; font-size: 13.5px; color: #fff; line-height: 1.55;
+    display: flex; gap: 10px;
+  }
+  .cmp-prompt svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--gold-2); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .cmp-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .cmp-list li { display: flex; gap: 10px; font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.55; font-weight: 300; }
+  .cmp-list li::before {
+    content: '✕'; flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; font-size: 9px;
+    background: rgba(255,107,107,0.12); color: #ff8f8f;
+  }
+  .cmp-card.is-vr .cmp-list li { color: rgba(255,255,255,0.85); }
+  .cmp-card.is-vr .cmp-list li::before { content: '✓'; background: rgba(232,201,106,0.15); color: var(--gold-2); }
+
+  /* ── VIDEORAG: HOW IT WORKS ── */
+  .flow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; position: relative; }
+  .flow-step { position: relative; }
+  .flow-n {
+    font-family: var(--pixel); font-size: 12px; color: var(--accent);
+    width: 48px; height: 48px; border-radius: var(--radius); background: var(--gold-2);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    position: relative; z-index: 1; box-shadow: 0 0 0 6px var(--surface);
+  }
+  .flow-step:not(:last-child)::after {
+    content: ''; position: absolute; top: 24px; left: 60px; right: -6px;
+    border-top: 1px dashed rgba(14,14,15,0.2);
+  }
+  .flow-name { font-family: var(--serif); font-size: 24px; font-style: italic; color: var(--ink); margin-bottom: 8px; }
+  .flow-desc { font-size: 13.5px; color: var(--ink-3); line-height: 1.7; font-weight: 300; margin-bottom: 14px; }
+  .flow-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .flow-tags span {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-2);
+    border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 2px 9px; background: #fff;
+  }
+
+  /* ── VIDEORAG: USE CASES ── */
+  .uc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .uc-card { background: var(--surface); padding: 26px; transition: background 0.2s; }
+  .uc-card:hover { background: #fff; }
+  .uc-name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .uc-desc { font-size: 13px; color: var(--ink-3); line-height: 1.65; font-weight: 300; margin-bottom: 14px; }
+  .uc-q { font-family: var(--mono); font-size: 11.5px; color: var(--teal); line-height: 1.5; }
+
+  /* ── VIDEORAG: TRUST ── */
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 56px; }
+  .trust-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface-2); border-radius: var(--radius); padding: 16px;
+    border: 1px solid var(--border-2);
+  }
+
+  /* ── VIDEORAG: CTA ── */
+  .vr-cta {
+    background: var(--night); border-radius: 20px; padding: 56px 48px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .vr-cta::before {
+    content: 'VideoRag'; font-family: var(--serif); font-size: 180px; font-style: italic;
+    color: rgba(255,255,255,0.03); position: absolute; left: 50%; bottom: -60px; transform: translateX(-50%);
+    line-height: 1; letter-spacing: -4px; pointer-events: none; white-space: nowrap;
+  }
+  .vr-cta > * { position: relative; }
+  .vr-cta h2 {
+    font-family: var(--pixel); font-size: 22px; font-weight: 400; color: #fff; line-height: 1.6;
+    text-transform: uppercase; margin-bottom: 18px; text-shadow: 3px 3px 0 rgba(201,168,76,0.35);
+  }
+  .vr-cta p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.75; font-weight: 300; max-width: 520px; margin: 0 auto 32px; }
+  .vr-cta .hero-actions { justify-content: center; }
 
   /* ── FEATURED PRODUCT ── */
   .featured {
@@ -405,7 +670,7 @@
     line-height: 1.4; text-transform: uppercase;
   }
   .footer-copy { font-size: 12px; color: var(--ink-4); }
-  .footer-links { display: flex; gap: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
   .footer-links a { font-size: 12px; color: var(--ink-4); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--ink-3); }
 
@@ -416,16 +681,34 @@
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
 
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
   /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .vr-body { grid-template-columns: 1fr; }
+    .vr-answer-text { min-height: 0; }
+    .flow-grid { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+    .flow-step::after { display: none; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   @media (max-width: 860px) {
     nav { padding: 16px 24px; }
     .nav-links { gap: 16px; }
-    .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; gap: 40px; }
+    .hero { padding: 60px 24px 36px; }
     .hero h1 { font-size: 22px; line-height: 1.55; }
+    .hero-stage { padding: 0 24px 64px; }
     .section-head { font-size: 17px; }
     .manifesto-inner h2 { font-size: 16px; }
-    .hero-visual { display: none; }
     .section, .section-sm { padding: 48px 24px; }
+    .cap-grid, .cmp-grid, .uc-grid { grid-template-columns: 1fr; }
+    .dark-band { padding: 56px 24px; }
+    .vr-cta { padding: 44px 24px; }
+    .vr-cta h2 { font-size: 16px; }
+    .vr-cta::before { font-size: 96px; bottom: -30px; }
     .features-grid { grid-template-columns: 1fr; }
     .lineup-grid { grid-template-columns: 1fr; }
     .social-grid { grid-template-columns: 1fr; }
@@ -433,6 +716,28 @@
     footer { padding: 24px; }
     .manifesto-wrap { padding: 56px 24px; }
     .manifesto-wrap::before { font-size: 60px; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 14px 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .eyebrow-extra { display: none; }
+    .hero { padding: 48px 16px 28px; }
+    .hero h1 { font-size: 18px; }
+    .hero-stage { padding: 0 16px 56px; }
+    .section, .section-sm { padding: 44px 16px; }
+    .dark-band { padding: 48px 16px; }
+    .vr-bar-title { display: none; }
+    .vr-bar-status { margin-left: auto; }
+    .vr-search { margin: 12px 12px 0; padding: 12px; font-size: 13.5px; }
+    .vr-kbd { display: none; }
+    .vr-body { padding: 12px; }
+    .vr-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .flow-grid, .trust-grid { grid-template-columns: 1fr; }
+    .cmp-fields { grid-template-columns: 1fr; }
+    .featured-top, .featured-body { padding: 28px 20px; }
+    .product-actions { flex-wrap: wrap; }
+    footer { padding: 24px 16px; }
   }
 </style>
 </head>
@@ -448,59 +753,361 @@
     </div>
   </a>
   <div class="nav-links">
+    <a href="#videorag">VideoRag</a>
+    <a href="#how">How it works</a>
     <a href="#products">Products</a>
     <a href="#manifesto">Research</a>
     <a href="#about">About</a>
-    <a href="#social">Follow</a>
+    <a href="#early-access" class="nav-cta">Early access</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO: VIDEORAG -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow"><span class="eyebrow-dot"></span> First product — now live</div>
-    <h1>We fix what others<br><em>decided to live with</em></h1>
-    <p class="hero-desc">Systems break quietly. Workflows calcify. Assumptions compound. ReOptimizeLabs rebuilds from first principles — researching from scratch, questioning what feels settled, optimizing what others stopped questioning.</p>
-    <div class="hero-actions">
-      <a href="https://www.ghoshla.com/" class="btn-dark" target="_blank" rel="noopener noreferrer">Explore Ghoshla →</a>
-      <a href="#manifesto" class="btn-ghost">Read our manifesto</a>
+  <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Introducing <strong>VideoRag</strong><span class="eyebrow-extra"> · Video intelligence</span></div>
+  <h1>Ask your cameras<br><em>anything</em></h1>
+  <p class="hero-desc">VideoRag turns hours of passive footage into answers. Describe what you’re looking for in plain language — a person, a vehicle, a behavior — and get the exact moments back, timestamped and cited, in seconds.</p>
+  <div class="hero-actions">
+    <a href="#early-access" class="btn-dark">Request early access →</a>
+    <a href="#how" class="btn-ghost">See how it works</a>
+  </div>
+</section>
+
+<div class="hero-stage">
+  <div class="vr-console" role="region" aria-label="VideoRag interactive demo">
+    <div class="vr-bar">
+      <div class="vr-bar-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="vr-bar-title"><b>VideoRag</b> · Operator console</div>
+      <div class="vr-bar-status"><span class="live-dot"></span> 6 feeds indexed</div>
+    </div>
+
+    <div class="vr-search" id="vrSearch">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="vr-query" id="vrQuery"></span><span class="vr-caret" aria-hidden="true"></span>
+      <span class="vr-kbd" aria-hidden="true">↵ Search</span>
+    </div>
+
+    <div class="vr-body">
+      <div class="vr-grid" id="vrGrid">
+        <!-- CAM 01: North fence -->
+        <div class="vr-cam" data-cam="1">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#171c29"/>
+            <rect y="54" width="160" height="36" fill="#1f261f"/>
+            <g stroke="#56607a" stroke-width="1.2">
+              <line x1="0" y1="26" x2="160" y2="26"/><line x1="0" y1="54" x2="160" y2="54"/>
+              <line x1="8" y1="22" x2="8" y2="56"/><line x1="32" y1="22" x2="32" y2="56"/><line x1="56" y1="22" x2="56" y2="56"/>
+              <line x1="80" y1="22" x2="80" y2="56"/><line x1="128" y1="22" x2="128" y2="56"/><line x1="152" y1="22" x2="152" y2="56"/>
+            </g>
+            <g stroke="#3a4257" stroke-width="0.5">
+              <line x1="0" y1="34" x2="160" y2="34"/><line x1="0" y1="42" x2="160" y2="42"/><line x1="0" y1="48" x2="160" y2="48"/>
+            </g>
+            <line x1="104" y1="22" x2="104" y2="56" stroke="#56607a" stroke-width="1.2"/>
+            <circle cx="104" cy="27" r="3" fill="#a9b1c4"/>
+            <rect x="100" y="30.5" width="8" height="11" rx="2" fill="#8a93a8"/>
+            <path d="M101 41 L98 49 M107 41 L110 46" stroke="#8a93a8" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M100 32 L95 26 M108 32 L112 25" stroke="#8a93a8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="vr-cam-label">CAM 01 · North fence</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+        <!-- CAM 02: Lobby entrance -->
+        <div class="vr-cam" data-cam="2">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#27231f"/>
+            <rect y="62" width="160" height="28" fill="#36312b"/>
+            <rect x="55" y="14" width="50" height="48" fill="#3f5568" opacity="0.6"/>
+            <line x1="80" y1="14" x2="80" y2="62" stroke="#22272d" stroke-width="1.5"/>
+            <rect x="55" y="14" width="50" height="48" fill="none" stroke="#5a5048" stroke-width="2"/>
+            <rect x="14" y="20" width="22" height="12" fill="#3a342d"/>
+            <circle cx="34" cy="36" r="3.6" fill="#d8b8a0"/>
+            <rect x="29.5" y="40" width="9" height="14" rx="2" fill="#b8403a"/>
+            <rect x="30.5" y="54" width="3" height="10" fill="#2c2c34"/><rect x="34.5" y="54" width="3" height="10" fill="#2c2c34"/>
+            <rect x="111" y="59" width="9" height="8" rx="1.5" fill="#6b5a3a"/>
+            <rect x="113" y="57" width="5" height="2.5" rx="1" fill="none" stroke="#6b5a3a" stroke-width="1"/>
+          </svg>
+          <span class="vr-cam-label">CAM 02 · Lobby</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+        <!-- CAM 03: Street -->
+        <div class="vr-cam" data-cam="3">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#1c2231"/>
+            <rect x="0" y="16" width="34" height="38" fill="#262c3a"/><rect x="38" y="8" width="40" height="46" fill="#222836"/>
+            <rect x="82" y="22" width="30" height="32" fill="#2a3040"/><rect x="116" y="12" width="44" height="42" fill="#232937"/>
+            <g fill="#c9a84c" opacity="0.35">
+              <rect x="44" y="14" width="4" height="4"/><rect x="54" y="14" width="4" height="4"/><rect x="64" y="24" width="4" height="4"/>
+              <rect x="122" y="20" width="4" height="4"/><rect x="140" y="30" width="4" height="4"/><rect x="88" y="30" width="4" height="4"/>
+            </g>
+            <rect y="54" width="160" height="36" fill="#2a2d33"/>
+            <g fill="#6b6f78"><rect x="4" y="71" width="14" height="2"/><rect x="34" y="71" width="14" height="2"/><rect x="64" y="71" width="14" height="2"/><rect x="94" y="71" width="14" height="2"/><rect x="124" y="71" width="14" height="2"/><rect x="154" y="71" width="6" height="2"/></g>
+            <rect x="20" y="58" width="26" height="12" rx="2" fill="#d9dce2"/>
+            <rect x="38" y="60" width="6" height="4" fill="#5d6b7d"/>
+            <circle cx="26" cy="70.5" r="2.4" fill="#16181c"/><circle cx="41" cy="70.5" r="2.4" fill="#16181c"/>
+            <rect x="96" y="76" width="18" height="8" rx="2" fill="#4a3d5c"/>
+          </svg>
+          <span class="vr-cam-label">CAM 03 · Main St</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+        <!-- CAM 04: Parking lot -->
+        <div class="vr-cam" data-cam="4">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#2a2d33"/>
+            <g stroke="#7d818a" stroke-width="1">
+              <line x1="20" y1="40" x2="20" y2="74"/><line x1="40" y1="40" x2="40" y2="74"/><line x1="60" y1="40" x2="60" y2="74"/>
+              <line x1="80" y1="40" x2="80" y2="74"/><line x1="100" y1="40" x2="100" y2="74"/><line x1="120" y1="40" x2="120" y2="74"/><line x1="140" y1="40" x2="140" y2="74"/>
+              <line x1="20" y1="10" x2="20" y2="30"/><line x1="60" y1="10" x2="60" y2="30"/><line x1="100" y1="10" x2="100" y2="30"/><line x1="140" y1="10" x2="140" y2="30"/>
+            </g>
+            <rect x="24" y="46" width="12" height="22" rx="3" fill="#3d4a5e"/>
+            <rect x="64" y="48" width="12" height="20" rx="3" fill="#5a3a3a"/>
+            <rect x="124" y="46" width="12" height="22" rx="3" fill="#3a4a40"/>
+            <rect x="26" y="12" width="12" height="16" rx="3" fill="#4b4b55"/>
+            <rect x="106" y="12" width="12" height="16" rx="3" fill="#3d4a5e"/>
+            <rect x="97" y="44" width="15" height="26" rx="2.5" fill="#d9dce2"/>
+            <rect x="99" y="46" width="11" height="5" rx="1" fill="#5d6b7d"/>
+          </svg>
+          <span class="vr-cam-label">CAM 04 · Parking</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+        <!-- CAM 05: Warehouse -->
+        <div class="vr-cam" data-cam="5">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#24262b"/>
+            <polygon points="56,30 104,30 160,90 0,90" fill="#36373a"/>
+            <polygon points="0,0 56,24 56,62 0,90" fill="#363b46"/>
+            <polygon points="160,0 104,24 104,62 160,90" fill="#363b46"/>
+            <g stroke="#c9752c" stroke-width="1.2" opacity="0.8">
+              <line x1="0" y1="20" x2="56" y2="34"/><line x1="0" y1="48" x2="56" y2="48"/><line x1="0" y1="76" x2="56" y2="60"/>
+              <line x1="160" y1="20" x2="104" y2="34"/><line x1="160" y1="48" x2="104" y2="48"/><line x1="160" y1="76" x2="104" y2="60"/>
+            </g>
+            <line x1="80" y1="34" x2="80" y2="90" stroke="#d4a72c" stroke-width="1" stroke-dasharray="3 4" opacity="0.5"/>
+            <rect x="72" y="58" width="16" height="12" rx="1.5" fill="#d4a72c"/>
+            <rect x="75" y="52" width="9" height="7" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+            <line x1="89" y1="50" x2="89" y2="72" stroke="#888" stroke-width="1.6"/>
+            <line x1="89" y1="72" x2="94" y2="72" stroke="#888" stroke-width="1.6"/>
+            <circle cx="75" cy="71" r="2.4" fill="#16181c"/><circle cx="85" cy="71" r="2.4" fill="#16181c"/>
+          </svg>
+          <span class="vr-cam-label">CAM 05 · Aisle 7</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+        <!-- CAM 06: Dock B -->
+        <div class="vr-cam" data-cam="6">
+          <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="160" height="90" fill="#2a2e37"/>
+            <rect y="66" width="160" height="24" fill="#303237"/>
+            <rect x="12" y="20" width="36" height="46" fill="#1a1d23"/><rect x="62" y="20" width="36" height="46" fill="#1a1d23"/><rect x="112" y="20" width="36" height="46" fill="#1a1d23"/>
+            <g fill="#c9a84c" opacity="0.5"><rect x="12" y="16" width="36" height="2"/><rect x="62" y="16" width="36" height="2"/><rect x="112" y="16" width="36" height="2"/></g>
+            <text x="74" y="13" font-family="monospace" font-size="6" fill="#8a8f9a">DOCK B</text>
+            <rect x="60" y="34" width="40" height="34" rx="1.5" fill="#c9ccd2"/>
+            <line x1="80" y1="34" x2="80" y2="68" stroke="#9a9ea8" stroke-width="1"/>
+            <rect x="62" y="68" width="6" height="4" fill="#16181c"/><rect x="92" y="68" width="6" height="4" fill="#16181c"/>
+            <rect x="63" y="62" width="3" height="3" fill="#ff6b6b"/><rect x="94" y="62" width="3" height="3" fill="#ff6b6b"/>
+          </svg>
+          <span class="vr-cam-label">CAM 06 · Dock B</span>
+          <span class="vr-cam-rec">● REC</span>
+          <span class="vr-cam-time">--:--:--</span>
+        </div>
+      </div>
+
+      <aside class="vr-answer">
+        <div class="vr-answer-head"><span id="vrAnswerLabel">Answer</span><span id="vrAnswerMeta"></span></div>
+        <p class="vr-answer-text is-idle" id="vrAnswer" aria-live="polite">Ask a question about any camera, any time range.</p>
+        <div class="vr-hits" id="vrHits"></div>
+      </aside>
     </div>
   </div>
-  <div class="hero-visual" role="img" aria-label="Ghoshla product preview card">
-    <div class="hv-label">First product</div>
-    <div class="hv-product">Ghoshla</div>
-    <div class="hv-sub">Find your next nest</div>
-    <div class="hv-tag">Live now</div>
-    <div class="hv-stat-row">
-      <div class="hv-stat">
-        <div class="hv-stat-n">1k+</div>
-        <div class="hv-stat-l">Listings</div>
+
+  <div class="vr-try" id="vrTry">
+    <span class="vr-try-label">Try</span>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- VIDEORAG: CAPABILITIES -->
+<section class="section" id="videorag">
+  <span class="label">VideoRag · What it does</span>
+  <h2 class="section-head reveal">From footage<br>to answers</h2>
+  <p class="section-sub reveal reveal-delay-1">Most cameras record everything and understand nothing. VideoRag adds the missing layer on top of the cameras you already own — so your team stops scrubbing timelines and starts asking questions.</p>
+  <div class="cap-grid">
+    <div class="cap-card reveal reveal-delay-1">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <div class="cap-name">Search</div>
+      <p class="cap-desc">Find the exact moment you need across days of footage and every camera at once. No tags, no presets — just describe it.</p>
+      <div class="cap-query">man with a tattoo on his left arm near gate 3</div>
+    </div>
+    <div class="cap-card reveal reveal-delay-2">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="cap-name">Alert</div>
+      <p class="cap-desc">Describe a behavior once and get notified the moment it happens live — on one camera or thousands.</p>
+      <div class="cap-query">notify me if someone climbs over the wall</div>
+    </div>
+    <div class="cap-card reveal reveal-delay-3">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div>
+      <div class="cap-name">Ask</div>
+      <p class="cap-desc">Ask questions of your video and get answers grounded in retrieved clips — counts, timelines, summaries — each claim linked to its source.</p>
+      <div class="cap-query">how many pickup trucks entered yesterday?</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEORAG: COMPARE -->
+<div class="dark-band">
+  <div class="dark-inner">
+    <span class="label">Why it’s different</span>
+    <h2 class="section-head reveal">No more fixed<br>parameters</h2>
+    <p class="section-sub reveal reveal-delay-1">Traditional video analytics make you pick from a list: object, color, zone. Real incidents don’t fit dropdowns. If you can describe it in words, VideoRag can find it.</p>
+    <div class="cmp-grid">
+      <div class="cmp-card reveal reveal-delay-1">
+        <div class="cmp-title">Legacy video analytics</div>
+        <div class="cmp-fields" aria-hidden="true">
+          <div class="cmp-field"><div><small>Object</small>Person</div><span>▾</span></div>
+          <div class="cmp-field"><div><small>Color</small>Red</div><span>▾</span></div>
+          <div class="cmp-field"><div><small>Zone</small>Entrance</div><span>▾</span></div>
+        </div>
+        <ul class="cmp-list">
+          <li>Only detects what was configured in advance</li>
+          <li>Can’t express actions — “left a bag and walked away”</li>
+          <li>Can’t connect events across cameras or time</li>
+          <li>Operators still scrub hours of footage by hand</li>
+        </ul>
       </div>
-      <div class="hv-stat">
-        <div class="hv-stat-n">3</div>
-        <div class="hv-stat-l">Cities</div>
-      </div>
-      <div class="hv-stat">
-        <div class="hv-stat-n">∞</div>
-        <div class="hv-stat-l">Filters</div>
+      <div class="cmp-card is-vr reveal reveal-delay-2">
+        <div class="cmp-title">VideoRag <span class="live-dot" style="background: var(--gold-2);"></span></div>
+        <div class="cmp-prompt">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Person in a red jacket who left a bag by the lobby doors and walked away</span>
+        </div>
+        <ul class="cmp-list">
+          <li>Understands objects, attributes, actions and context</li>
+          <li>Searches every camera and time range in one query</li>
+          <li>Answers cite the exact clips, so every result is verifiable</li>
+          <li>New scenarios need a sentence, not a re-configuration</li>
+        </ul>
       </div>
     </div>
-    <div class="hv-dots">
-      <div class="hv-dot active"></div>
-      <div class="hv-dot"></div>
-      <div class="hv-dot"></div>
+  </div>
+</div>
+
+<!-- VIDEORAG: HOW IT WORKS -->
+<section class="section" id="how">
+  <span class="label">How it works</span>
+  <h2 class="section-head reveal">Retrieval-augmented<br>video</h2>
+  <p class="section-sub reveal reveal-delay-1">VideoRag applies retrieval-augmented generation to video: index everything once, retrieve only what matters, and let a language model answer from the evidence — not from guesswork.</p>
+  <div class="flow-grid">
+    <div class="flow-step reveal reveal-delay-1">
+      <div class="flow-n">01</div>
+      <div class="flow-name">Connect</div>
+      <p class="flow-desc">Plug into the cameras and VMS you already run, or upload recorded archives. No new hardware.</p>
+      <div class="flow-tags"><span>RTSP</span><span>ONVIF</span><span>VMS</span><span>MP4</span></div>
+    </div>
+    <div class="flow-step reveal reveal-delay-1">
+      <div class="flow-n">02</div>
+      <div class="flow-name">Index</div>
+      <p class="flow-desc">Vision-language models describe every scene — people, vehicles, actions, text, attributes — and store them as searchable embeddings on a timeline.</p>
+      <div class="flow-tags"><span>VLM</span><span>embeddings</span><span>OCR</span></div>
+    </div>
+    <div class="flow-step reveal reveal-delay-2">
+      <div class="flow-n">03</div>
+      <div class="flow-name">Retrieve</div>
+      <p class="flow-desc">Your question is matched against the index across all cameras and time ranges, pulling back only the clips that matter.</p>
+      <div class="flow-tags"><span>vector search</span><span>re-rank</span></div>
+    </div>
+    <div class="flow-step reveal reveal-delay-2">
+      <div class="flow-n">04</div>
+      <div class="flow-name">Answer</div>
+      <p class="flow-desc">An LLM reasons over the retrieved evidence and replies in plain language — every claim linked to a camera and timestamp you can play back.</p>
+      <div class="flow-tags"><span>grounded</span><span>cited</span><span>alerts</span></div>
+    </div>
+  </div>
+
+  <div class="trust-grid">
+    <div class="trust-item reveal reveal-delay-1">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+      <div><div class="feat-text-head">Works with your cameras</div><div class="feat-text-sub">Any brand, old or new — software only</div></div>
+    </div>
+    <div class="trust-item reveal reveal-delay-1">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg></div>
+      <div><div class="feat-text-head">Cloud, on-prem or edge</div><div class="feat-text-sub">Deploy where your footage has to stay</div></div>
+    </div>
+    <div class="trust-item reveal reveal-delay-2">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div><div class="feat-text-head">Answers you can verify</div><div class="feat-text-sub">Every claim cites the source clip</div></div>
+    </div>
+    <div class="trust-item reveal reveal-delay-2">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div><div class="feat-text-head">Private by design</div><div class="feat-text-sub">Role-based access and audit logs</div></div>
     </div>
   </div>
 </section>
 
 <hr class="full-divider">
 
+<!-- VIDEORAG: USE CASES -->
+<section class="section" id="use-cases">
+  <span class="label">Built for</span>
+  <h2 class="section-head reveal">Every team that<br>watches video</h2>
+  <p class="section-sub reveal reveal-delay-1">Security, operations and investigations all have the same problem: too much footage, too few people. VideoRag fits wherever cameras already are.</p>
+  <div class="uc-grid reveal reveal-delay-2">
+    <div class="uc-card">
+      <div class="uc-name">Public safety &amp; law enforcement</div>
+      <p class="uc-desc">Locate suspects, vehicles and evidence across city camera networks — and reconstruct incidents in minutes, not weeks.</p>
+      <div class="uc-q">“grey hatchback with a dented rear door, Tuesday after 9 PM”</div>
+    </div>
+    <div class="uc-card">
+      <div class="uc-name">Retail &amp; loss prevention</div>
+      <p class="uc-desc">Spot concealment, repeat offenders and internal shrink across every store without adding staff.</p>
+      <div class="uc-q">“someone putting items into a backpack in aisle 4”</div>
+    </div>
+    <div class="uc-card">
+      <div class="uc-name">Manufacturing &amp; logistics</div>
+      <p class="uc-desc">Catch unsafe actions, restricted-area entry and misplaced goods before they become downtime.</p>
+      <div class="uc-q">“worker without a helmet near the press line”</div>
+    </div>
+    <div class="uc-card">
+      <div class="uc-name">Airports, rail &amp; transit</div>
+      <p class="uc-desc">Find unattended bags, crowd build-up and access breaches without slowing passengers down.</p>
+      <div class="uc-q">“unattended suitcase near platform 2 for over 5 minutes”</div>
+    </div>
+    <div class="uc-card">
+      <div class="uc-name">Campuses &amp; enterprise</div>
+      <p class="uc-desc">Detect tailgating and after-hours activity, and support HR and security investigations instantly.</p>
+      <div class="uc-q">“two people entering on one badge swipe”</div>
+    </div>
+    <div class="uc-card">
+      <div class="uc-name">Media &amp; video archives</div>
+      <p class="uc-desc">Make years of recorded content searchable by what happens in it, not by file names and tags.</p>
+      <div class="uc-q">“every clip where the crowd stands up and cheers”</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEORAG: CTA -->
+<div class="section-sm" id="early-access" style="padding-top: 0;">
+  <div class="vr-cta reveal">
+    <span class="label" style="color: rgba(255,255,255,0.35);">Early access</span>
+    <h2>See it on your<br>own footage</h2>
+    <p>We’re onboarding a small group of early partners. Bring a few hours of video — we’ll show you what’s been hiding in it.</p>
+    <div class="hero-actions">
+      <a href="https://t.me/ThinkUnthinkable" class="btn-gold" target="_blank" rel="noopener noreferrer">Request early access →</a>
+      <a href="https://www.linkedin.com/company/reoptimizelabs/" class="btn-ghost-light" target="_blank" rel="noopener noreferrer">Follow the build</a>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
 <!-- PRODUCTS -->
 <div id="products">
   <div class="section">
-    <span class="label">What we're building</span>
-    <h2 class="section-head reveal">Our products</h2>
-    <p class="section-sub reveal reveal-delay-1">Each product is a direct response to a problem we found unacceptably unsolved. We ship only when we've rebuilt the thinking, not just the interface.</p>
+    <span class="label">More from the lab</span>
+    <h2 class="section-head reveal">We fix what others<br>decided to live with</h2>
+    <p class="section-sub reveal reveal-delay-1">Systems break quietly. Workflows calcify. Assumptions compound. Each product is a direct response to a problem we found unacceptably unsolved — and we ship only when we've rebuilt the thinking, not just the interface.</p>
 
     <!-- GHOSHLA -->
     <div class="featured reveal reveal-delay-2">
@@ -647,11 +1254,21 @@
           <div class="li-about-txt">
             ReOptimizeLabs builds and fixes broken systems. We research from scratch, challenge inherited assumptions, and optimize the things that feel wrong but nobody questions anymore. Our products are born from first principles — not market maps.<br><br>
             <strong>ThinkUnthinkable</strong> — our founding conviction that the best solutions live just beyond the edge of what people assumed was possible.<br><br>
-            First product: <strong>Ghoshla</strong> — find your next nest. A reimagined home discovery experience that puts context, clarity, and intelligence back into housing search.
+            Flagship: <strong>VideoRag</strong> — ask your cameras anything. Natural-language search, alerts and grounded answers across live and recorded video.<br><br>
+            Also live: <strong>Ghoshla</strong> — find your next nest. A reimagined home discovery experience that puts context, clarity, and intelligence back into housing search.
           </div>
         </div>
         <div class="li-products-sec">
           <div class="li-sec-title">Products</div>
+          <div class="li-prod-row">
+            <div class="li-prod-icon">
+              <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <div>
+              <a class="li-prod-name" href="#videorag">VideoRag</a>
+              <div class="li-prod-desc">Ask your cameras anything · Video intelligence · Early access</div>
+            </div>
+          </div>
           <div class="li-prod-row">
             <div class="li-prod-icon">
               <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -733,6 +1350,7 @@
     <div class="footer-copy" style="margin-top:6px;">© 2026 ReOptimizeLabs. All rights reserved.</div>
   </div>
   <div class="footer-links">
+    <a href="#videorag">VideoRag</a>
     <a href="#">Privacy</a>
     <a href="https://t.me/ThinkUnthinkable" target="_blank" rel="noopener noreferrer">Contact</a>
     <a href="https://www.instagram.com/reoptimizelabs/" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -747,6 +1365,171 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   reveals.forEach(el => io.observe(el));
+
+  /* ── VideoRag demo console ── */
+  (() => {
+    const CAMS = { 1: 'North fence', 2: 'Lobby', 3: 'Main St', 4: 'Parking', 5: 'Aisle 7', 6: 'Dock B' };
+    // box = [left, top, width, height] in % of the camera tile
+    const QUERIES = [
+      {
+        chip: 'Bag left at entrance',
+        q: 'Person in a red jacket who left a bag near the entrance',
+        label: 'Answer', meta: '2 clips · 0.8s',
+        answer: 'One match. A person in a red jacket sets a backpack beside the lobby doors at 14:31:52 and leaves without it <span class="vr-cite">1</span>. The bag is still unattended 40 seconds later <span class="vr-cite">2</span>.',
+        hits: [
+          { cam: 2, box: [16.5, 34, 9.5, 39], tag: 'person · red jacket', t: '14:31:52' },
+          { cam: 2, box: [68, 61, 8.5, 15], tag: 'bag · unattended', t: '14:32:32' },
+        ],
+      },
+      {
+        chip: 'Van circling the lot',
+        q: 'White van that circled the parking lot more than twice',
+        label: 'Answer', meta: '3 clips · 1.1s',
+        answer: 'A white van passed the lot entrance three times between 13:58 and 14:21 without parking <span class="vr-cite">1</span><span class="vr-cite">2</span>, then idled in bay 12 for six minutes <span class="vr-cite">3</span>.',
+        hits: [
+          { cam: 3, box: [11, 62, 19, 19], tag: 'van · white', t: '13:58:14' },
+          { cam: 3, box: [11, 62, 19, 19], tag: 'van · white', t: '14:09:40', hidden: true },
+          { cam: 4, box: [58.5, 46, 13, 34], tag: 'van · idling', t: '14:21:03' },
+        ],
+      },
+      {
+        chip: 'Forklift after hours',
+        q: 'Forklift entering aisle 7 after 10 PM',
+        label: 'Answer', meta: '2 clips · 0.9s',
+        answer: 'Two after-hours entries into aisle 7: 22:14 <span class="vr-cite">1</span> and 23:47 <span class="vr-cite">2</span>. Both by the same forklift; no operator badge-in was recorded in that window.',
+        hits: [
+          { cam: 5, box: [43, 52, 17, 32], tag: 'forklift · restricted aisle', t: '22:14:09' },
+          { cam: 5, box: [43, 52, 17, 32], tag: 'forklift', t: '23:47:31', hidden: true },
+        ],
+      },
+      {
+        chip: 'Count trucks at Dock B',
+        q: 'How many delivery trucks arrived at Dock B yesterday?',
+        label: 'Answer', meta: '7 clips · 1.4s',
+        answer: '<strong style="color:#fff;font-weight:500">7 trucks</strong> docked at Dock B yesterday. The busiest window was 09:00–11:00 with 4 arrivals <span class="vr-cite">1</span>–<span class="vr-cite">4</span>; the last left at 17:52 <span class="vr-cite">7</span>.',
+        hits: [
+          { cam: 6, box: [35, 34, 30, 46], tag: 'truck · docked', t: '09:12:44' },
+          { cam: 6, box: [35, 34, 30, 46], tag: 'truck', t: '17:52:10', n: 7, hidden: true },
+        ],
+      },
+      {
+        chip: 'Alert on fence climbing',
+        q: 'Alert me if anyone climbs the north fence',
+        label: 'Alert armed', meta: 'live · CAM 01',
+        answer: 'Alert armed on CAM 01. You’ll be notified the moment someone climbs or crosses the north fence. Closest past event, for reference <span class="vr-cite">1</span>.',
+        hits: [
+          { cam: 1, box: [58.5, 23, 12.5, 36], tag: 'person · climbing', t: 'Tue 02:13:27' },
+        ],
+      },
+    ];
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const $ = (id) => document.getElementById(id);
+    const search = $('vrSearch'), query = $('vrQuery'), grid = $('vrGrid');
+    const answer = $('vrAnswer'), label = $('vrAnswerLabel'), meta = $('vrAnswerMeta'), hits = $('vrHits');
+    const cams = [...grid.querySelectorAll('.vr-cam')];
+    const camEl = (n) => grid.querySelector(`.vr-cam[data-cam="${n}"]`);
+    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+    // Chips
+    const tryRow = $('vrTry');
+    const chips = QUERIES.map((item, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'vr-chip'; b.textContent = item.chip;
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => run(i));
+      tryRow.appendChild(b);
+      return b;
+    });
+
+    // Live clock on every feed
+    let clock = new Date(); clock.setHours(14, 32, 8, 0);
+    const pad = (n) => String(n).padStart(2, '0');
+    const tick = () => {
+      const s = `${pad(clock.getHours())}:${pad(clock.getMinutes())}:${pad(clock.getSeconds())}`;
+      cams.forEach(c => c.querySelector('.vr-cam-time').textContent = s);
+      clock = new Date(clock.getTime() + 1000);
+    };
+    tick(); setInterval(tick, 1000);
+
+    function reset() {
+      grid.querySelectorAll('.vr-box').forEach(b => b.remove());
+      cams.forEach(c => c.classList.remove('is-hit', 'is-dim'));
+      hits.innerHTML = '';
+      meta.textContent = '';
+    }
+
+    let runId = 0;
+    async function run(i) {
+      const id = ++runId;
+      const live = () => id === runId;
+      const item = QUERIES[i];
+      chips.forEach((c, k) => c.setAttribute('aria-pressed', String(k === i)));
+      reset();
+      label.textContent = 'Answer';
+      answer.className = 'vr-answer-text is-idle';
+      answer.textContent = 'Ask a question about any camera, any time range.';
+
+      // Type the query
+      search.classList.add('is-typing');
+      if (reduce) {
+        query.textContent = item.q;
+      } else {
+        query.textContent = '';
+        for (let k = 1; k <= item.q.length; k++) {
+          query.textContent = item.q.slice(0, k);
+          await wait(26 + Math.random() * 30);
+          if (!live()) return;
+        }
+        await wait(350); if (!live()) return;
+      }
+      search.classList.remove('is-typing');
+
+      // Retrieve
+      answer.innerHTML = '<span class="vr-thinking" aria-label="Searching"><i></i><i></i><i></i></span>';
+      answer.className = 'vr-answer-text';
+      if (!reduce) {
+        grid.classList.remove('is-scanning'); void grid.offsetWidth; grid.classList.add('is-scanning');
+        await wait(950); if (!live()) return;
+        grid.classList.remove('is-scanning');
+      }
+
+      // Highlight matches
+      const hitCams = new Set(item.hits.map(h => h.cam));
+      cams.forEach(c => c.classList.toggle('is-dim', !hitCams.has(+c.dataset.cam)));
+      hitCams.forEach(n => camEl(n).classList.add('is-hit'));
+      item.hits.filter(h => !h.hidden).forEach(h => {
+        const [x, y, w, hgt] = h.box;
+        const box = document.createElement('div');
+        box.className = 'vr-box' + (x + w / 2 > 50 ? ' is-right' : '');
+        box.style.cssText = `left:${x}%;top:${y}%;width:${w}%;height:${hgt}%`;
+        box.innerHTML = `<span class="vr-box-tag">${h.tag}</span>`;
+        camEl(h.cam).appendChild(box);
+      });
+
+      // Grounded answer + citations
+      label.textContent = item.label;
+      meta.textContent = item.meta;
+      answer.innerHTML = item.answer;
+      item.hits.forEach((h, k) => {
+        const row = document.createElement('div');
+        row.className = 'vr-hit';
+        row.style.animationDelay = `${k * 90}ms`;
+        row.innerHTML = `<span class="vr-cite">${h.n || k + 1}</span><span class="vr-hit-cam">CAM 0${h.cam} · ${CAMS[h.cam]}<small>${h.tag}</small></span><span class="vr-hit-t">${h.t}</span>`;
+        hits.appendChild(row);
+      });
+
+      await wait(reduce ? 9000 : 5200);
+      if (!live()) return;
+      run((i + 1) % QUERIES.length);
+    }
+
+    // Start when the console is on screen
+    const start = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) { start.disconnect(); run(0); }
+    }, { threshold: 0.25 });
+    start.observe(grid);
+  })();
 </script>
 </body>
 </html>
