@@ -173,7 +173,7 @@
   .btn-ghost-light:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
 
   /* ── VIDEORAG CONSOLE ── */
-  .hero-stage { max-width: 1100px; margin: 0 auto; padding: 0 48px 88px; }
+  .hero-stage { max-width: 1200px; margin: 0 auto; padding: 0 48px 88px; }
 
   .vr-console {
     background: var(--night); color: #fff;
@@ -316,6 +316,105 @@
   }
   .vr-chip:hover { border-color: rgba(14,14,15,0.25); }
   .vr-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── VIDEORAG LIVE FEED ── */
+  .lv-wrap { position: relative; }
+  .lv {
+    position: relative; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; isolation: isolate;
+    background: #0b0f1c; color: #fff;
+    box-shadow: 0 48px 120px -40px rgba(26,26,46,0.65), 0 0 0 1px rgba(14,14,15,0.06);
+  }
+  .lv canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .lv-grain {
+    position: absolute; inset: -40%; pointer-events: none; opacity: 0.08;
+    background-size: 160px 160px; animation: grain 0.5s steps(4) infinite;
+  }
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-4%, 3%); }
+    50% { transform: translate(3%, -4%); }
+    75% { transform: translate(-2%, -2%); }
+  }
+  .lv-fx {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.10) 0, rgba(0,0,0,0.10) 1px, transparent 1px, transparent 3px),
+      radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.55));
+  }
+  .lv-hud {
+    position: absolute; z-index: 2; top: 16px; display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; color: rgba(255,255,255,0.88);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  }
+  .lv-hud-tl { left: 18px; }
+  .lv-hud-tr { right: 18px; }
+  .lv-live {
+    display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 4px;
+    background: #e5484d; color: #fff; font-weight: 600; letter-spacing: 1.5px; text-shadow: none;
+  }
+  .lv-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 1.4s ease-in-out infinite; }
+
+  .lv-ask {
+    position: absolute; z-index: 3; left: 50%; bottom: 22px; transform: translateX(-50%);
+    width: min(640px, calc(100% - 36px));
+    display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px;
+    border-radius: 14px; font-size: 15px; color: #fff;
+    background: rgba(13,13,26,0.62);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .lv-ask.is-typing { border-color: rgba(232,201,106,0.6); box-shadow: 0 0 0 4px rgba(232,201,106,0.12), 0 12px 40px rgba(0,0,0,0.35); }
+  .lv-ask > svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--gold-2); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .lv-query { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .lv-query:empty::before { content: 'Ask anything about this camera…'; color: rgba(255,255,255,0.4); }
+  .lv-ask-btn {
+    margin-left: auto; flex-shrink: 0; padding: 7px 14px; border-radius: 9px;
+    background: var(--gold-2); color: var(--accent); font-size: 12px; font-weight: 500;
+  }
+
+  .lv-card {
+    position: absolute; z-index: 3; top: 52px; right: 18px; width: 272px; padding: 16px;
+    border-radius: 14px; color: #fff;
+    background: rgba(13,13,26,0.72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.12);
+    opacity: 0; transform: translateY(-6px); pointer-events: none;
+    transition: opacity 0.35s, transform 0.35s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .lv-card.is-show { opacity: 1; transform: none; }
+  .lv-card.is-alert { border-color: rgba(255,93,93,0.75); box-shadow: 0 0 0 4px rgba(255,93,93,0.16); }
+  .lv-card-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-2);
+  }
+  .lv-card.is-alert .lv-card-head { color: #ff7a7a; }
+  .lv-card-head span:last-child { font-family: var(--mono); letter-spacing: 0.5px; text-transform: none; color: rgba(255,255,255,0.5); }
+  .lv-card-big { font-family: var(--pixel); font-size: 30px; line-height: 1.2; color: var(--gold-2); margin: 6px 0 10px; }
+  .lv-card-big:empty { display: none; }
+  .lv-card-text { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.86); }
+  .lv-thumb {
+    display: none; width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 12px;
+    border-radius: 8px; border: 1px solid rgba(232,201,106,0.45); background: #000;
+  }
+  .lv-thumb.is-on { display: block; }
+  .lv-card.is-alert .lv-thumb { border-color: rgba(255,93,93,0.7); }
+  .lv-card-rows { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .lv-card-rows:empty { display: none; }
+  .lv-row { display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.5); }
+  .lv-row b { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+  @media (max-width: 760px) {
+    .lv { border-radius: 14px; }
+    .lv-hud { top: 10px; font-size: 9px; gap: 6px; }
+    .lv-hud-tl { left: 10px; }
+    .lv-hud-tr { right: 10px; }
+    .lv-date { display: none; }
+    .lv-ask { bottom: 10px; width: calc(100% - 20px); padding: 6px 6px 6px 12px; gap: 8px; font-size: 12px; border-radius: 10px; }
+    .lv-ask > svg { width: 14px; height: 14px; }
+    .lv-ask .vr-caret { height: 14px; margin-left: -6px; }
+    .lv-ask-btn { padding: 4px 10px; font-size: 11px; border-radius: 7px; }
+    .lv-card { position: static; width: auto; margin-top: 12px; opacity: 1; transform: none; background: var(--night); }
+  }
 
   /* ── DIVIDER ── */
   .full-divider { border: none; border-top: 1px solid var(--border-2); margin: 0; }
@@ -766,7 +865,7 @@
 <section class="hero">
   <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Introducing <strong>VideoRag</strong><span class="eyebrow-extra"> · Video intelligence</span></div>
   <h1>Ask your cameras<br><em>anything</em></h1>
-  <p class="hero-desc">VideoRag turns hours of passive footage into answers. Describe what you’re looking for in plain language — a person, a vehicle, a behavior — and get the exact moments back, timestamped and cited, in seconds.</p>
+  <p class="hero-desc">VideoRag turns live and recorded video into answers. Ask in plain language — a person, a vehicle, a behavior — and it finds, tracks, counts or alerts in seconds, with every moment timestamped and cited.</p>
   <div class="hero-actions">
     <a href="#early-access" class="btn-dark">Request early access →</a>
     <a href="#how" class="btn-ghost">See how it works</a>
@@ -774,6 +873,70 @@
 </section>
 
 <div class="hero-stage">
+  <div class="lv-wrap">
+    <div class="lv" id="lv" role="img" aria-label="Animated demo: VideoRag answering plain-language questions about a live street camera">
+      <canvas id="lvCanvas"></canvas>
+      <div class="lv-grain" id="lvGrain" aria-hidden="true"></div>
+      <div class="lv-fx" aria-hidden="true"></div>
+      <div class="lv-hud lv-hud-tl"><span class="lv-live">LIVE</span><span>CAM 07 · Market St &amp; 5th</span></div>
+      <div class="lv-hud lv-hud-tr"><span class="lv-date" id="lvDate"></span><span id="lvTime">--:--:--</span></div>
+      <div class="lv-ask" id="lvAsk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+        <span class="lv-query" id="lvQuery"></span><span class="vr-caret" aria-hidden="true"></span>
+        <span class="lv-ask-btn" aria-hidden="true">Ask</span>
+      </div>
+    </div>
+    <div class="lv-card" id="lvCard" aria-live="polite">
+      <div class="lv-card-head"><span id="lvCardLabel">VideoRag</span><span id="lvCardMeta"></span></div>
+      <div class="lv-card-big" id="lvCardBig"></div>
+      <p class="lv-card-text" id="lvCardText">Ask anything about this live feed.</p>
+      <canvas class="lv-thumb" id="lvThumb" width="320" height="180"></canvas>
+      <div class="lv-card-rows" id="lvCardRows"></div>
+    </div>
+  </div>
+
+  <div class="vr-try" id="lvTry">
+    <span class="vr-try-label">Ask the feed</span>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- VIDEORAG: CAPABILITIES -->
+<section class="section" id="videorag">
+  <span class="label">VideoRag · What it does</span>
+  <h2 class="section-head reveal">From footage<br>to answers</h2>
+  <p class="section-sub reveal reveal-delay-1">Most cameras record everything and understand nothing. VideoRag adds the missing layer on top of the cameras you already own — so your team stops scrubbing timelines and starts asking questions.</p>
+  <div class="cap-grid">
+    <div class="cap-card reveal reveal-delay-1">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <div class="cap-name">Search</div>
+      <p class="cap-desc">Find the exact moment you need across days of footage and every camera at once. No tags, no presets — just describe it.</p>
+      <div class="cap-query">man with a tattoo on his left arm near gate 3</div>
+    </div>
+    <div class="cap-card reveal reveal-delay-2">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="cap-name">Alert</div>
+      <p class="cap-desc">Describe a behavior once and get notified the moment it happens live — on one camera or thousands.</p>
+      <div class="cap-query">notify me if someone climbs over the wall</div>
+    </div>
+    <div class="cap-card reveal reveal-delay-3">
+      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div>
+      <div class="cap-name">Ask</div>
+      <p class="cap-desc">Ask questions of your video and get answers grounded in retrieved clips — counts, timelines, summaries — each claim linked to its source.</p>
+      <div class="cap-query">how many pickup trucks entered yesterday?</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- VIDEORAG: ARCHIVE SEARCH -->
+<section class="section" id="archive">
+  <span class="label">Archive search</span>
+  <h2 class="section-head reveal">Every camera.<br>One question.</h2>
+  <p class="section-sub reveal reveal-delay-1">Search days of recorded footage across every feed at once. VideoRag retrieves the matching moments and writes an answer grounded in the clips — each claim cited, each clip one click away.</p>
+
   <div class="vr-console" role="region" aria-label="VideoRag interactive demo">
     <div class="vr-bar">
       <div class="vr-bar-dots" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -924,35 +1087,6 @@
 
   <div class="vr-try" id="vrTry">
     <span class="vr-try-label">Try</span>
-  </div>
-</div>
-
-<hr class="full-divider">
-
-<!-- VIDEORAG: CAPABILITIES -->
-<section class="section" id="videorag">
-  <span class="label">VideoRag · What it does</span>
-  <h2 class="section-head reveal">From footage<br>to answers</h2>
-  <p class="section-sub reveal reveal-delay-1">Most cameras record everything and understand nothing. VideoRag adds the missing layer on top of the cameras you already own — so your team stops scrubbing timelines and starts asking questions.</p>
-  <div class="cap-grid">
-    <div class="cap-card reveal reveal-delay-1">
-      <div class="cap-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></div>
-      <div class="cap-name">Search</div>
-      <p class="cap-desc">Find the exact moment you need across days of footage and every camera at once. No tags, no presets — just describe it.</p>
-      <div class="cap-query">man with a tattoo on his left arm near gate 3</div>
-    </div>
-    <div class="cap-card reveal reveal-delay-2">
-      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-      <div class="cap-name">Alert</div>
-      <p class="cap-desc">Describe a behavior once and get notified the moment it happens live — on one camera or thousands.</p>
-      <div class="cap-query">notify me if someone climbs over the wall</div>
-    </div>
-    <div class="cap-card reveal reveal-delay-3">
-      <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div>
-      <div class="cap-name">Ask</div>
-      <p class="cap-desc">Ask questions of your video and get answers grounded in retrieved clips — counts, timelines, summaries — each claim linked to its source.</p>
-      <div class="cap-query">how many pickup trucks entered yesterday?</div>
-    </div>
   </div>
 </section>
 
@@ -1538,6 +1672,759 @@
       if (entries.some(e => e.isIntersecting)) { start.disconnect(); run(0); }
     }, { threshold: 0.25 });
     start.observe(grid);
+  })();
+
+  /* ── VideoRag live feed demo (procedural street camera) ── */
+  (() => {
+    const $ = (id) => document.getElementById(id);
+    const root = $('lv'), canvas = $('lvCanvas'), ctx = canvas.getContext('2d');
+    const W = 1280, H = 720, VX = 640, Y0 = 250, Y1 = 760, S0 = 0.5, S1 = 1.3;
+    const Yz = (z) => Y0 + (Y1 - Y0) * z;
+    const Sz = (z) => S0 + (S1 - S0) * z;
+    const Xz = (x, z) => VX + (x - VX) * Sz(z);
+    const edgeX = (z, side) => VX + side * (VX + 30) / Sz(z);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const pick = (a) => a[Math.floor(Math.random() * a.length)];
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const pad = (n) => String(n).padStart(2, '0');
+    const fmt = (d) => `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+
+    // Scene layout: world x, depth z (0 = far building line, 1 = camera)
+    const LANES = [{ z: 0.235, dir: -1 }, { z: 0.36, dir: -1 }, { z: 0.485, dir: 1 }, { z: 0.61, dir: 1 }];
+    const CROSS = [580, 700];
+    const STOP = { '1': 560, '-1': 720 };
+    const COUNT_X = 900;
+    const TRACKS = [0.045, 0.09, 0.7, 0.78, 0.86];
+    const POLES = [
+      { type: 'pole', kind: 'lamp', x: 330, z: 0.118 }, { type: 'pole', kind: 'lamp', x: 980, z: 0.118 },
+      { type: 'pole', kind: 'signal', x: 735, z: 0.118 },
+      { type: 'pole', kind: 'lamp', x: 150, z: 0.648 }, { type: 'pole', kind: 'lamp', x: 1140, z: 0.648 },
+      { type: 'pole', kind: 'walk', x: 548, z: 0.648 },
+    ];
+    const VEH = {
+      sedan: { len: 160, h: 50, v: [150, 200], colors: ['#d9dbe0', '#9aa0aa', '#1e2026', '#26344f', '#7a2a2a', '#5b6068', '#ecebe6'] },
+      taxi: { len: 162, h: 52, v: [150, 195], colors: ['#e6b422'] },
+      suv: { len: 176, h: 62, v: [140, 185], colors: ['#2a2d33', '#ecebe6', '#3b4a3f', '#5b6068', '#14161a'] },
+      van: { len: 192, h: 72, v: [135, 170], colors: ['#e4e5e8', '#c9ccd1'] },
+      bus: { len: 420, h: 112, v: [115, 135], colors: ['#dfe3e8'] },
+      bike: { len: 64, h: 60, v: [95, 115], colors: ['#c9ccd2', '#2e6bd6', '#1a1a1a', '#d64545'] },
+    };
+    const SHIRTS = ['#2b3a55', '#6b7280', '#e5e5e0', '#1f1f22', '#3f6b4f', '#b9a88a', '#4b3f6b', '#7d8c99', '#c7b9a0', '#2f4f6f', '#8a6d4b'];
+    const PANTS = ['#1f2430', '#2c2c30', '#3b3f4a', '#4a5568', '#6b5d4a', '#1a1a1a'];
+    const SKIN = ['#e8c4a8', '#c99a78', '#a8754f', '#7a5236', '#f0d2bb'];
+    const HAIR = ['#1a1410', '#3b2a1e', '#6b4a2e', '#c9b28a', '#2a2a2a', '#8a8a8a'];
+    const BAGS = ['#2a2622', '#3d4a5c', '#5a3d2a', '#1f2b24', '#6b2f2f'];
+    const JERSEYS = ['#2e6bd6', '#f0a020', '#2fa36b', '#e9e9e6', '#8b3fd1'];
+
+    let vehicles = [], peds = [], uid = 0, simT = 0, clock = 0;
+    let taxiBoostUntil = 0, forceGreenUntil = 0;
+    const laneTimers = LANES.map(() => rand(0, 2));
+    const trackTimers = TRACKS.map(() => rand(0, 2));
+    const sig = { phase: 'green', t: 0, crossings: [] };
+
+    // ── Entities ──
+    function makeVehicle(kind, li, x) {
+      const sp = VEH[kind], lane = LANES[li], len = sp.len * rand(0.96, 1.04), v0 = rand(sp.v[0], sp.v[1]);
+      return {
+        type: kind === 'bike' ? 'bike' : 'veh', kind, lane: li, dir: lane.dir, z: lane.z, len, h: sp.h,
+        x: x !== undefined ? x : edgeX(lane.z, -lane.dir) - lane.dir * len / 2, px: 0,
+        v: v0, v0, color: pick(sp.colors), jersey: pick(JERSEYS), helmet: pick(['#f2f2f2', '#1a1a1a', '#e8c96a']),
+        crank: rand(0, 6.28), id: ++uid, conf: rand(0.89, 0.97),
+      };
+    }
+    function laneClear(li, len) {
+      const d = LANES[li].dir, sx = edgeX(LANES[li].z, -d) - d * len / 2;
+      return vehicles.every(v => v.lane !== li || (v.x * d - v.len / 2) - (sx * d + len / 2) > 50);
+    }
+    function spawnVehicle(li, kind) {
+      if (!kind) {
+        const boost = simT < taxiBoostUntil && LANES[li].dir > 0, r = Math.random();
+        kind = r < (boost ? 0.6 : 0.2) ? 'taxi' : r < 0.62 ? 'sedan' : r < 0.78 ? 'suv' : r < 0.88 ? 'van' : r < 0.94 ? 'bus' : 'bike';
+      }
+      if (!laneClear(li, VEH[kind].len * 1.04)) return null;
+      const v = makeVehicle(kind, li);
+      vehicles.push(v);
+      return v;
+    }
+    function makePed(o) {
+      return Object.assign({
+        type: 'ped', id: ++uid, x: 0, z: 0.78, dir: 1, v: rand(42, 58), phase: rand(0, 6.28),
+        shirt: pick(SHIRTS), pants: pick(PANTS), skin: pick(SKIN), hair: pick(HAIR), bag: pick(BAGS),
+        backpack: Math.random() < 0.28, red: false, h: rand(0.92, 1.08), conf: rand(0.9, 0.97), cross: 0,
+      }, o);
+    }
+    function spawnWalker(o = {}) {
+      const ti = o.track !== undefined ? o.track : Math.floor(Math.random() * TRACKS.length);
+      const z = TRACKS[ti] + rand(-0.012, 0.012), dir = Math.random() < 0.5 ? 1 : -1;
+      const p = makePed(Object.assign({ z, dir, x: edgeX(z, -dir) - dir * 20 }, o));
+      if (p.red) p.shirt = '#c8342b';
+      peds.push(p);
+      return p;
+    }
+    function spawnCrosser() {
+      const fromFar = Math.random() < 0.5;
+      peds.push(makePed({
+        x: rand(592, 688), z: fromFar ? 0.09 : 0.7, to: fromFar ? 0.7 : 0.09, cross: fromFar ? 1 : -1,
+        v: rand(0.075, 0.095), dir: Math.random() < 0.5 ? 1 : -1,
+      }));
+    }
+
+    // ── Simulation ──
+    const forceGreen = (sec) => { forceGreenUntil = simT + sec; };
+    function setPhase(p) {
+      sig.phase = p; sig.t = 0;
+      if (p === 'walk') sig.crossings = simT < forceGreenUntil ? [] : Array.from({ length: 3 + Math.floor(Math.random() * 4) }, () => rand(0.9, 3.2));
+    }
+    function updateSignal(dt) {
+      sig.t += dt;
+      const forced = simT < forceGreenUntil;
+      if (sig.phase === 'green') { if (sig.t > 11 && !forced) setPhase('amber'); }
+      else if (sig.phase === 'amber') { if (sig.t > 2.2) setPhase('walk'); }
+      else {
+        if (forced) sig.crossings = [];
+        sig.crossings = sig.crossings.filter(t => { if (sig.t >= t) { spawnCrosser(); return false; } return true; });
+        const onRoad = peds.some(p => p.cross && p.z > 0.11 && p.z < 0.645);
+        if (!onRoad && !sig.crossings.length && (sig.t > 7.5 || (forced && sig.t > 1.2))) setPhase('green');
+      }
+    }
+    function updateVehicles(dt) {
+      LANES.forEach((lane, li) => {
+        const d = lane.dir;
+        const list = vehicles.filter(v => v.lane === li).sort((a, b) => b.x * d - a.x * d);
+        list.forEach((v, i) => {
+          const lead = list[i - 1], front = v.x * d + v.len / 2;
+          let gap = lead ? (lead.x * d - lead.len / 2) - front - 28 : Infinity;
+          const stopP = STOP[d] * d;
+          if (sig.phase !== 'green' && front <= stopP + 1) {
+            const gs = stopP - front;
+            if (!(sig.phase === 'amber' && gs < v.v * 0.45)) gap = Math.min(gap, gs);
+          }
+          const target = gap <= 0 ? 0 : Math.min(v.v0, Math.sqrt(2 * 420 * gap));
+          v.v = Math.max(0, v.v + clamp(target - v.v, -900 * dt, 170 * dt));
+          v.px = v.x;
+          v.x += v.v * d * dt;
+          if (v.type === 'bike') v.crank += v.v * dt * 0.09;
+        });
+      });
+      vehicles = vehicles.filter(v => v.dir > 0 ? v.x - v.len / 2 < edgeX(v.z, 1) : v.x + v.len / 2 > edgeX(v.z, -1));
+    }
+    function updatePeds(dt) {
+      for (const p of peds) {
+        if (p.cross) {
+          p.z += p.cross * p.v * dt; p.phase += dt * 7;
+          if ((p.cross > 0 && p.z >= p.to) || (p.cross < 0 && p.z <= p.to)) { p.z = p.to; p.cross = 0; p.v = rand(42, 58); }
+        } else {
+          p.x += p.dir * p.v * dt; p.phase += p.v * dt * 0.11;
+        }
+      }
+      peds = peds.filter(p => p.cross || (p.dir > 0 ? p.x - 20 < edgeX(p.z, 1) : p.x + 20 > edgeX(p.z, -1)));
+    }
+    let policyT = 0;
+    function step(dt) {
+      simT += dt;
+      updateSignal(dt);
+      LANES.forEach((l, i) => { laneTimers[i] -= dt; if (laneTimers[i] <= 0) { spawnVehicle(i); laneTimers[i] = rand(2.2, 5.2); } });
+      TRACKS.forEach((z, i) => { trackTimers[i] -= dt; if (trackTimers[i] <= 0) { spawnWalker({ track: i }); trackTimers[i] = i < 2 ? rand(4, 8) : rand(3, 6); } });
+      policyT -= dt;
+      if (policyT <= 0) {
+        policyT = 0.5;
+        if (peds.filter(p => p.red).length < 2) spawnWalker({ track: 2 + Math.floor(Math.random() * 3), red: true, backpack: false });
+        if (peds.filter(p => p.backpack).length < 4) spawnWalker({ backpack: true });
+      }
+      updateVehicles(dt);
+      updatePeds(dt);
+    }
+
+    // ── Drawing helpers ──
+    function poly(g, pts) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fill(); }
+    function quad(g, x0, x1, z0, z1) { poly(g, [[Xz(x0, z0), Yz(z0)], [Xz(x1, z0), Yz(z0)], [Xz(x1, z1), Yz(z1)], [Xz(x0, z1), Yz(z1)]]); }
+    function rr(g, x, y, w, h, r) { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); }
+    function ellipse(g, x, y, rx, ry) { g.beginPath(); g.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), 0, 0, Math.PI * 2); g.fill(); }
+    function glow(x, y, r, color, a) {
+      const gr = ctx.createRadialGradient(x, y, 0, x, y, r);
+      gr.addColorStop(0, color.replace('A', a)); gr.addColorStop(1, color.replace('A', 0));
+      ctx.fillStyle = gr; ctx.fillRect(x - r, y - r, r * 2, r * 2);
+    }
+    function seeded(s) {
+      return () => {
+        s = s + 0x6D2B79F5 | 0;
+        let t = Math.imul(s ^ s >>> 15, 1 | s);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── Static background (buildings, street, markings), rebuilt on resize ──
+    let bg = null, k = 1;
+    function buildBg() {
+      bg = document.createElement('canvas');
+      bg.width = Math.round(W * k); bg.height = Math.round(H * k);
+      const g = bg.getContext('2d');
+      g.setTransform(k, 0, 0, k, 0, 0);
+      const R = seeded(11), rp = (a) => a[Math.floor(R() * a.length)];
+
+      let gr = g.createLinearGradient(0, 0, 0, Y0);
+      gr.addColorStop(0, '#0a0d18'); gr.addColorStop(1, '#1c2033');
+      g.fillStyle = gr; g.fillRect(0, 0, W, Y0 + 1);
+      gr = g.createRadialGradient(VX, 178, 4, VX, 178, 430);
+      gr.addColorStop(0, 'rgba(255,178,96,0.85)'); gr.addColorStop(0.3, 'rgba(214,120,72,0.32)'); gr.addColorStop(1, 'rgba(214,120,72,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, W, Y0);
+
+      // Side street receding toward the low sun
+      g.fillStyle = '#2d2b2c'; poly(g, [[566, Y0], [714, Y0], [652, 178], [628, 178]]);
+      g.fillStyle = '#121624'; poly(g, [[560, -5], [627, 128], [627, 180], [560, Y0]]);
+      g.fillStyle = '#151a29'; poly(g, [[720, -5], [653, 128], [653, 180], [720, Y0]]);
+      for (let i = 0; i < 46; i++) {
+        const t = R(), left = R() < 0.5, x = left ? 560 + t * 64 : 720 - t * 64;
+        const yTop = -5 + t * 133, yBot = Y0 - t * 70 - 20, y = yTop + R() * (yBot - yTop);
+        g.fillStyle = R() < 0.5 ? 'rgba(245,200,130,0.7)' : 'rgba(20,24,36,0.9)';
+        g.fillRect(x - 1.5 * (1 - t) - 1, y, 3 * (1 - t) + 1.5, 4 * (1 - t) + 1.5);
+      }
+      g.fillStyle = 'rgba(255,90,60,0.95)';
+      [[633, 175], [645, 173], [639, 177]].forEach(([x, y]) => g.fillRect(x, y, 2.5, 1.6));
+      g.fillStyle = 'rgba(255,240,210,0.95)'; g.fillRect(648, 177, 2.5, 1.6);
+
+      // Facades with lit windows and storefronts
+      const blocks = (x0, x1) => {
+        let x = x0;
+        while (x < x1) {
+          const w = Math.min(x1 - x, 110 + R() * 130), top = R() < 0.55 ? -5 : 18 + R() * 70;
+          g.fillStyle = rp(['#151a28', '#1a1f2f', '#1d2233', '#171b29', '#1b1d27']); g.fillRect(x, top, w, Y0 - top);
+          g.fillStyle = 'rgba(255,255,255,0.05)'; g.fillRect(x, top, w, 3);
+          for (let wy = top + 16; wy < Y0 - 64; wy += 23) {
+            for (let wx = x + 10; wx < x + w - 14; wx += 19) {
+              const r = R();
+              g.fillStyle = r < 0.05 ? 'rgba(170,200,240,0.5)'
+                : r < 0.36 ? `rgba(245,${190 + (R() * 30 | 0)},${110 + (R() * 40 | 0)},${(0.35 + R() * 0.5).toFixed(2)})`
+                : 'rgba(8,10,18,0.6)';
+              g.fillRect(wx, wy, 9, 12);
+            }
+          }
+          const sf = Y0 - 52;
+          g.fillStyle = '#0e111a'; g.fillRect(x, sf, w, 52);
+          if (R() < 0.75) {
+            const sg = g.createLinearGradient(0, sf + 12, 0, Y0);
+            sg.addColorStop(0, 'rgba(255,200,130,0.6)'); sg.addColorStop(1, 'rgba(255,160,90,0.22)');
+            g.fillStyle = sg; g.fillRect(x + 8, sf + 12, w - 16, 40);
+            g.fillStyle = 'rgba(10,12,18,0.7)';
+            for (let mx = x + 36; mx < x + w - 10; mx += 28 + R() * 12) g.fillRect(mx, sf + 12, 2, 40);
+          }
+          g.fillStyle = rp(['#7a2e2e', '#2e4f7a', '#2e6b52', '#6b5a2e', '#3a3a46']); g.fillRect(x + 4, sf + 2, w - 8, 8);
+          g.fillStyle = 'rgba(0,0,0,0.4)'; g.fillRect(x + w - 2, top, 2, Y0 - top);
+          x += w;
+        }
+      };
+      blocks(-10, 560); blocks(720, 1290);
+
+      // Far sidewalk, curb, road
+      g.fillStyle = '#3a3834'; quad(g, -3000, 4300, 0, 0.115);
+      gr = g.createLinearGradient(0, Y0, 0, Yz(0.115));
+      gr.addColorStop(0, 'rgba(255,180,110,0.22)'); gr.addColorStop(1, 'rgba(255,180,110,0)');
+      g.fillStyle = gr; quad(g, -3000, 4300, 0, 0.115);
+      g.strokeStyle = 'rgba(0,0,0,0.2)'; g.lineWidth = 1;
+      for (let wx = -1400; wx < 2700; wx += 70) { g.beginPath(); g.moveTo(Xz(wx, 0), Yz(0)); g.lineTo(Xz(wx, 0.115), Yz(0.115)); g.stroke(); }
+      g.fillStyle = '#5c5a55'; quad(g, -3000, 4300, 0.115, 0.125);
+      gr = g.createLinearGradient(0, Yz(0.125), 0, Yz(0.625));
+      gr.addColorStop(0, '#1f2126'); gr.addColorStop(1, '#2b2d32');
+      g.fillStyle = gr; quad(g, -3000, 4300, 0.125, 0.625);
+      for (let i = 0; i < 2200; i++) {
+        const z = 0.125 + R() * 0.5, x = -400 + R() * 2100;
+        g.fillStyle = `rgba(255,255,255,${(0.02 + R() * 0.05).toFixed(3)})`;
+        g.fillRect(Xz(x, z), Yz(z), 1.4, 1.4);
+      }
+
+      // Lane markings, stop lines, crosswalk
+      g.fillStyle = 'rgba(232,232,222,0.55)';
+      [0.25, 0.5].forEach(z => { for (let wx = -1500; wx < 2900; wx += 200) if (wx + 90 < 545 || wx > 735) quad(g, wx, wx + 90, z - 0.0026, z + 0.0026); });
+      g.fillStyle = 'rgba(232,180,60,0.8)';
+      [[0.3705, 0.3735], [0.3765, 0.3795]].forEach(([a, b]) => { quad(g, -3000, 545, a, b); quad(g, 735, 4300, a, b); });
+      g.fillStyle = 'rgba(236,236,228,0.75)'; quad(g, 550, 562, 0.375, 0.625); quad(g, 718, 730, 0.125, 0.375);
+      g.fillStyle = 'rgba(228,228,220,0.72)';
+      for (let z = 0.136; z < 0.61; z += 0.052) quad(g, CROSS[0], CROSS[1], z, z + 0.028);
+      g.fillStyle = 'rgba(30,32,36,0.35)';
+      for (let i = 0; i < 500; i++) { const z = 0.13 + R() * 0.49, x = CROSS[0] + R() * 120; g.fillRect(Xz(x, z), Yz(z), 2, 1.2); }
+
+      // Near curb and sidewalk
+      g.fillStyle = '#5f5d58'; quad(g, -3000, 4300, 0.625, 0.64);
+      gr = g.createLinearGradient(0, Yz(0.64), 0, H);
+      gr.addColorStop(0, '#3a3834'); gr.addColorStop(1, '#45433e');
+      g.fillStyle = gr; quad(g, -3000, 4300, 0.64, 1.2);
+      g.strokeStyle = 'rgba(0,0,0,0.22)';
+      for (let wx = -800; wx < 2100; wx += 90) { g.beginPath(); g.moveTo(Xz(wx, 0.64), Yz(0.64)); g.lineTo(Xz(wx, 1.2), Yz(1.2)); g.stroke(); }
+      [0.75, 0.88].forEach(z => { g.beginPath(); g.moveTo(0, Yz(z)); g.lineTo(W, Yz(z)); g.stroke(); });
+      g.fillStyle = '#48463f'; quad(g, 585, 695, 0.64, 0.685); quad(g, 585, 695, 0.08, 0.115);
+      g.fillStyle = 'rgba(222,182,64,0.6)'; quad(g, 592, 688, 0.643, 0.658); quad(g, 592, 688, 0.1, 0.112);
+
+      // Pools of street light
+      g.globalCompositeOperation = 'lighter';
+      POLES.filter(p => p.kind === 'lamp').forEach(p => {
+        const zc = p.z > 0.5 ? 0.6 : 0.11, s = Sz(zc);
+        g.save(); g.translate(Xz(p.x, zc), Yz(zc)); g.scale(1, 0.28);
+        const lg = g.createRadialGradient(0, 0, 0, 0, 0, 300 * s);
+        lg.addColorStop(0, 'rgba(255,196,120,0.22)'); lg.addColorStop(1, 'rgba(255,196,120,0)');
+        g.fillStyle = lg; g.fillRect(-300 * s, -300 * s, 600 * s, 600 * s);
+        g.restore();
+      });
+      g.globalCompositeOperation = 'source-over';
+    }
+
+    // ── Dynamic drawing ──
+    function drawPole(p) {
+      const s = Sz(p.z), x = Xz(p.x, p.z), y = Yz(p.z);
+      const hgt = (p.kind === 'lamp' ? 360 : p.kind === 'signal' ? 260 : 190) * s;
+      ctx.fillStyle = 'rgba(0,0,0,0.4)'; ellipse(ctx, x, y, 10 * s, 3 * s);
+      ctx.fillStyle = '#15171c'; ctx.fillRect(x - 2.6 * s, y - hgt, 5.2 * s, hgt);
+      if (p.kind === 'lamp') {
+        const ax = x + (p.x < VX ? 1 : -1) * 46 * s, ay = y - hgt;
+        ctx.strokeStyle = '#15171c'; ctx.lineWidth = 4 * s;
+        ctx.beginPath(); ctx.moveTo(x, ay + 6 * s); ctx.quadraticCurveTo(x, ay, ax, ay); ctx.stroke();
+        ctx.fillStyle = '#fff1d0'; ellipse(ctx, ax, ay + 3 * s, 13 * s, 4 * s);
+        ctx.globalCompositeOperation = 'lighter';
+        glow(ax, ay + 4 * s, 80 * s, 'rgba(255,205,140,A)', 0.55);
+        ctx.globalCompositeOperation = 'source-over';
+      } else if (p.kind === 'signal') {
+        const by = y - hgt, bw = 16 * s, bh = 44 * s;
+        const on = sig.phase === 'green' ? 2 : sig.phase === 'amber' ? 1 : 0;
+        const cols = ['rgba(255,70,60,A)', 'rgba(255,180,40,A)', 'rgba(70,230,140,A)'];
+        ctx.fillStyle = '#101216'; rr(ctx, x - bw / 2, by, bw, bh, 3 * s); ctx.fill();
+        for (let i = 0; i < 3; i++) { ctx.fillStyle = cols[i].replace('A', i === on ? 1 : 0.15); ellipse(ctx, x, by + 8 * s + i * 14 * s, 4.6 * s, 4.6 * s); }
+        ctx.globalCompositeOperation = 'lighter';
+        glow(x, by + 8 * s + on * 14 * s, 30 * s, cols[on], 0.6);
+        ctx.globalCompositeOperation = 'source-over';
+      } else {
+        const by = y - hgt, bw = 22 * s;
+        const col = sig.phase === 'walk' ? 'rgba(235,240,235,A)' : 'rgba(255,128,48,A)';
+        ctx.fillStyle = '#101216'; rr(ctx, x - bw / 2, by, bw, bw, 3 * s); ctx.fill();
+        ctx.fillStyle = col.replace('A', 0.95); ellipse(ctx, x, by + bw / 2, 5.5 * s, 6.5 * s);
+        ctx.globalCompositeOperation = 'lighter';
+        glow(x, by + bw / 2, 28 * s, col, 0.5);
+        ctx.globalCompositeOperation = 'source-over';
+      }
+    }
+
+    function drawBike(v, cx, gy, s) {
+      const d = v.dir, r = 12.5 * s, rx = cx - d * 20 * s, fx = cx + d * 20 * s, wy = gy - r;
+      const ck = { x: cx - d * 2 * s, y: wy }, seat = { x: cx - d * 9 * s, y: gy - 34 * s }, bar = { x: cx + d * 15 * s, y: gy - 36 * s };
+      const hip = { x: seat.x, y: seat.y - 2 * s }, sh = { x: cx + d * 5 * s, y: gy - 52 * s };
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#0d0e10'; ctx.lineWidth = 2.4 * s;
+      [rx, fx].forEach(x => { ctx.beginPath(); ctx.arc(x, wy, r, 0, Math.PI * 2); ctx.stroke(); });
+      ctx.strokeStyle = v.color; ctx.lineWidth = 2.2 * s;
+      ctx.beginPath();
+      ctx.moveTo(rx, wy); ctx.lineTo(ck.x, ck.y); ctx.lineTo(seat.x, seat.y); ctx.lineTo(rx, wy);
+      ctx.moveTo(ck.x, ck.y); ctx.lineTo(bar.x, bar.y); ctx.lineTo(fx, wy);
+      ctx.moveTo(seat.x, seat.y); ctx.lineTo(bar.x - d * 2 * s, bar.y);
+      ctx.stroke();
+      ctx.strokeStyle = '#1d222b'; ctx.lineWidth = 4.2 * s;
+      [v.crank, v.crank + Math.PI].forEach((a, i) => {
+        const foot = { x: ck.x + Math.cos(a) * 7 * s * d, y: ck.y + Math.sin(a) * 7 * s };
+        const mx = (hip.x + foot.x) / 2 + d * 7 * s, my = (hip.y + foot.y) / 2 - 3 * s;
+        ctx.globalAlpha = i ? 0.75 : 1;
+        ctx.beginPath(); ctx.moveTo(hip.x, hip.y); ctx.lineTo(mx, my); ctx.lineTo(foot.x, foot.y); ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = v.jersey; ctx.lineWidth = 7.5 * s;
+      ctx.beginPath(); ctx.moveTo(hip.x, hip.y); ctx.lineTo(sh.x, sh.y); ctx.stroke();
+      ctx.lineWidth = 3.4 * s;
+      ctx.beginPath(); ctx.moveTo(sh.x, sh.y); ctx.lineTo(bar.x, bar.y); ctx.stroke();
+      const hx = sh.x + d * 5 * s, hy = sh.y - 8 * s;
+      ctx.fillStyle = '#d2a68a'; ellipse(ctx, hx, hy, 5 * s, 5 * s);
+      ctx.fillStyle = v.helmet; ctx.beginPath(); ctx.ellipse(hx, hy - 1.5 * s, 5.8 * s, 4.2 * s, 0, Math.PI, Math.PI * 2); ctx.fill();
+      ctx.globalCompositeOperation = 'lighter';
+      glow(fx + d * 6 * s, gy - 32 * s, 16 * s, 'rgba(255,255,240,A)', 0.7);
+      glow(rx - d * 8 * s, gy - 30 * s, 10 * s, 'rgba(255,40,40,A)', 0.6);
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function drawVehicle(v) {
+      const s = Sz(v.z), cx = Xz(v.x, v.z), gy = Yz(v.z), d = v.dir, L = v.len * s, Hh = v.h * s;
+      ctx.fillStyle = 'rgba(0,0,0,0.5)'; ellipse(ctx, cx, gy, L * 0.53, 5 * s);
+      if (v.kind === 'bike') return drawBike(v, cx, gy, s);
+      const r = (v.kind === 'bus' ? 15 : 10.5) * s, left = cx - L / 2, bot = gy - r * 0.55, c = v.color;
+      let ly;
+      ctx.save();
+      if (d < 0) { ctx.translate(cx * 2, 0); ctx.scale(-1, 1); } // draw everything facing right
+      ctx.fillStyle = c;
+      if (v.kind === 'bus') {
+        rr(ctx, left, gy - Hh, L, Hh - r * 0.55, 8 * s); ctx.fill();
+        ctx.fillStyle = '#2b5fa8'; ctx.fillRect(left, gy - Hh * 0.36, L, Hh * 0.07);
+        ctx.fillStyle = '#16202c';
+        for (let wx = left + 14 * s; wx < left + L - 50 * s; wx += 44 * s) ctx.fillRect(wx, gy - Hh * 0.86, 38 * s, Hh * 0.36);
+        ctx.fillRect(left + L - 40 * s, gy - Hh * 0.9, 34 * s, Hh * 0.62);
+        ctx.fillStyle = '#ffb347'; ctx.fillRect(left + L - 120 * s, gy - Hh * 0.97, 70 * s, 7 * s);
+        ly = gy - Hh * 0.22;
+      } else if (v.kind === 'van') {
+        rr(ctx, left, gy - Hh, L * 0.86, Hh - r * 0.55, 7 * s); ctx.fill();
+        poly(ctx, [[left + L * 0.84, gy - Hh], [left + L * 0.93, gy - Hh * 0.55], [left + L, gy - Hh * 0.5], [left + L, bot], [left + L * 0.84, bot]]);
+        ctx.fillStyle = '#1a2330';
+        poly(ctx, [[left + L * 0.8, gy - Hh * 0.92], [left + L * 0.86, gy - Hh * 0.92], [left + L * 0.93, gy - Hh * 0.58], [left + L * 0.8, gy - Hh * 0.58]]);
+        ctx.fillRect(left + L * 0.62, gy - Hh * 0.88, L * 0.14, Hh * 0.3);
+        ly = gy - Hh * 0.38;
+      } else {
+        const tall = v.kind === 'suv', bh = Hh * (tall ? 0.5 : 0.52), bt = bot - bh, roof = gy - Hh;
+        const c0 = left + L * (tall ? 0.08 : 0.2), c1 = left + L * (tall ? 0.14 : 0.33), c2 = left + L * (tall ? 0.7 : 0.64), c3 = left + L * 0.8;
+        rr(ctx, left, bt, L, bh, 7 * s); ctx.fill();
+        poly(ctx, [[c0, bt + 1], [c1, roof], [c2, roof], [c3, bt + 1]]);
+        const ins = 3.5 * s;
+        ctx.fillStyle = '#18212d';
+        poly(ctx, [[c0 + ins * 1.6, bt], [c1 + ins * 0.6, roof + ins], [c2 - ins * 0.4, roof + ins], [c3 - ins * 1.8, bt]]);
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        poly(ctx, [[c1 + ins * 2, roof + ins], [c1 + ins * 5, roof + ins], [c0 + ins * 6, bt], [c0 + ins * 3, bt]]);
+        ctx.fillStyle = c; ctx.fillRect(left + L * (tall ? 0.45 : 0.5) - 2 * s, roof, 4 * s, bt - roof);
+        if (v.kind === 'taxi') {
+          ctx.fillStyle = '#f8e7a0'; ctx.fillRect((c1 + c2) / 2 - 12 * s, roof - 7 * s, 24 * s, 7 * s);
+          ctx.fillStyle = '#1a1a1a'; ctx.fillRect(left + 6 * s, bt + bh * 0.4, L - 12 * s, 3 * s);
+        }
+        ly = bt + bh * 0.3;
+      }
+      ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fillRect(left + 4 * s, bot - 5 * s, L - 8 * s, 5 * s);
+      const wpos = v.kind === 'bus' ? [0.14, 0.8] : [0.19, 0.79];
+      ctx.fillStyle = '#0c0d0f'; wpos.forEach(f => ellipse(ctx, left + L * f, gy - r, r, r));
+      ctx.fillStyle = '#5a5e66'; wpos.forEach(f => ellipse(ctx, left + L * f, gy - r, r * 0.45, r * 0.45));
+      ctx.fillStyle = '#fff4d6'; ctx.fillRect(left + L - 4 * s, ly - 2.5 * s, 4 * s, 5 * s);
+      ctx.fillStyle = '#ff3b30'; ctx.fillRect(left, ly - 2.5 * s, 3.5 * s, 5 * s);
+      ctx.restore();
+
+      const fx = cx + d * L / 2, bx = cx - d * L / 2, braking = v.v < v.v0 * 0.6;
+      ctx.globalCompositeOperation = 'lighter';
+      glow(fx, ly, 30 * s, 'rgba(255,240,205,A)', 0.6);
+      ctx.save(); ctx.translate(fx + d * 85 * s, gy - 1); ctx.scale(1, 0.09);
+      glow(0, 0, 110 * s, 'rgba(255,236,190,A)', 0.22);
+      ctx.restore();
+      glow(bx, ly, (braking ? 26 : 15) * s, 'rgba(255,50,40,A)', braking ? 0.75 : 0.45);
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function drawPed(p) {
+      const s = Sz(p.z), cx = Xz(p.x, p.z), gy = Yz(p.z), P = 62 * s * p.h;
+      const side = !p.cross, d = p.dir, sw = Math.sin(p.phase);
+      const hipY = gy - P * 0.47, shY = gy - P * 0.8, tw = P * 0.22, packW = P * 0.11;
+      ctx.fillStyle = 'rgba(0,0,0,0.4)'; ellipse(ctx, cx, gy, P * 0.17, P * 0.035);
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = p.pants; ctx.lineWidth = P * 0.085;
+      if (side) {
+        [sw, -sw].forEach((a, i) => {
+          ctx.globalAlpha = i ? 0.8 : 1;
+          ctx.beginPath(); ctx.moveTo(cx, hipY); ctx.lineTo(cx + a * P * 0.16, gy - P * 0.02); ctx.stroke();
+        });
+      } else {
+        [-1, 1].forEach((o, i) => {
+          const lift = Math.max(0, i ? sw : -sw) * P * 0.05;
+          ctx.beginPath(); ctx.moveTo(cx + o * P * 0.05, hipY); ctx.lineTo(cx + o * P * 0.055, gy - P * 0.02 - lift); ctx.stroke();
+        });
+      }
+      ctx.globalAlpha = 1;
+      if (p.backpack && side) {
+        ctx.fillStyle = p.bag;
+        rr(ctx, d > 0 ? cx - tw / 2 - packW * 0.8 : cx + tw / 2 - packW * 0.2, shY + P * 0.03, packW, P * 0.27, P * 0.03); ctx.fill();
+      }
+      ctx.fillStyle = p.shirt; rr(ctx, cx - tw / 2, shY, tw, hipY - shY + P * 0.05, P * 0.05); ctx.fill();
+      if (p.backpack && !side) {
+        ctx.fillStyle = p.bag;
+        if (p.cross < 0) { rr(ctx, cx - tw * 0.38, shY + P * 0.04, tw * 0.76, P * 0.25, P * 0.03); ctx.fill(); }
+        else { ctx.fillRect(cx - tw * 0.32, shY, P * 0.025, P * 0.2); ctx.fillRect(cx + tw * 0.32 - P * 0.025, shY, P * 0.025, P * 0.2); }
+      }
+      ctx.strokeStyle = p.shirt; ctx.lineWidth = P * 0.06;
+      if (side) { ctx.beginPath(); ctx.moveTo(cx, shY + P * 0.04); ctx.lineTo(cx - sw * P * 0.13, gy - P * 0.5); ctx.stroke(); }
+      else [-1, 1].forEach(o => { ctx.beginPath(); ctx.moveTo(cx + o * tw * 0.5, shY + P * 0.05); ctx.lineTo(cx + o * tw * 0.58, gy - P * 0.5); ctx.stroke(); });
+      const hy = gy - P * 0.89;
+      ctx.fillStyle = p.skin; ellipse(ctx, cx, hy, P * 0.072, P * 0.078);
+      ctx.fillStyle = p.hair;
+      if (p.cross < 0) ellipse(ctx, cx, hy, P * 0.074, P * 0.08);
+      else { ctx.beginPath(); ctx.ellipse(cx, hy - P * 0.012, P * 0.076, P * 0.07, 0, Math.PI, Math.PI * 2); ctx.fill(); }
+    }
+
+    function bbox(e) {
+      const s = Sz(e.z), cx = Xz(e.x, e.z), gy = Yz(e.z);
+      if (e.type === 'ped') { const P = 62 * s * e.h; return { x: cx - P * 0.22, y: gy - P * 0.99, w: P * 0.44, h: P * 1.01 }; }
+      if (e.type === 'bike') return { x: cx - 36 * s, y: gy - 68 * s, w: 72 * s, h: 69 * s };
+      const L = e.len * s, Hh = e.h * s + (e.kind === 'taxi' ? 7 * s : 0);
+      return { x: cx - L / 2 - 3 * s, y: gy - Hh - 3 * s, w: L + 6 * s, h: Hh + 4 * s };
+    }
+    const onScreen = (b) => b.x + b.w > 8 && b.x < W - 8 && b.y < H && b.y + b.h > 0;
+
+    // ── Queries ──
+    const Q = [
+      {
+        chip: 'Person in the red jacket', q: 'Find the person in the red jacket', kind: 'track', tag: 'person · red jacket', dur: 8,
+        match: (e) => e.type === 'ped' && e.red,
+        text: (vis) => {
+          if (!vis.length) return 'Searching the live feed…';
+          const e = vis[0], where = e.cross ? 'crossing the street' : `walking ${e.dir > 0 ? 'east' : 'west'} on the ${e.z > 0.5 ? 'near' : 'far'} sidewalk`;
+          return vis.length === 1 ? `Found one person in a red jacket, ${where}.` : `Found ${vis.length} people in red jackets. Closest is ${where}.`;
+        },
+      },
+      {
+        chip: 'Count eastbound taxis', q: 'How many yellow taxis are heading east?', kind: 'count', tag: 'taxi', dur: 10,
+        match: (e) => e.kind === 'taxi' && e.dir > 0,
+        prep() { forceGreen(15); taxiBoostUntil = simT + 14; spawnVehicle(2, 'taxi'); spawnVehicle(3, 'taxi'); },
+      },
+      {
+        chip: 'Alert on cyclists', q: 'Alert me when a cyclist enters the crosswalk', kind: 'alert', tag: 'cyclist', dur: 12,
+        match: (e) => e.type === 'bike',
+        prep() { forceGreen(16); if (!spawnVehicle(3, 'bike') && !spawnVehicle(2, 'bike')) vehicles.push(makeVehicle('bike', 3)); },
+      },
+      {
+        chip: 'Everyone with a backpack', q: 'Show everyone carrying a backpack', kind: 'track', tag: 'backpack', dur: 8,
+        match: (e) => e.type === 'ped' && e.backpack,
+        text: (vis) => vis.length ? `${vis.length} ${vis.length === 1 ? 'person is' : 'people are'} carrying a backpack in view right now.` : 'Searching the live feed…',
+      },
+    ];
+
+    let query = null, qPhase = 'idle', qT = 0, count = 0, alertAt = 0, alertTarget = 0, alertTime = '', qStart = '';
+    let floats = [], seen = new Map(), waiters = [];
+    const waitSim = (sec) => new Promise(res => waiters.push({ at: clock + sec, res }));
+
+    function queryStep(dt) {
+      qT += dt;
+      floats.forEach(f => { f.t += dt; });
+      floats = floats.filter(f => f.t < 1.2);
+      if (!query || qPhase !== 'active') return;
+      if (query.kind === 'count') {
+        vehicles.forEach(v => {
+          if (query.match(v) && v.px < COUNT_X && v.x >= COUNT_X) { count++; floats.push({ z: v.z, t: 0 }); updateCard(); }
+        });
+      }
+      if (query.kind === 'alert' && !alertAt) {
+        const b = vehicles.find(v => v.type === 'bike' && v.x + v.len / 2 > CROSS[0] && v.x - v.len / 2 < CROSS[1]);
+        if (b) { alertAt = clock; alertTarget = b.id; alertTime = fmt(new Date()); snapshot(bbox(b), '#ff5d5d'); updateCard(); }
+      }
+    }
+
+    // ── Overlays ──
+    function tag(text, x, y, bgc, fg, fs) {
+      ctx.font = `600 ${fs}px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
+      const ph = fs * 1.55, pw = ctx.measureText(text).width + fs * 0.9;
+      x = clamp(x, 4, W - pw - 4); y = clamp(y, 4, H - ph - 4);
+      ctx.fillStyle = bgc; rr(ctx, x, y, pw, ph, fs * 0.25); ctx.fill();
+      ctx.fillStyle = fg; ctx.textBaseline = 'middle'; ctx.fillText(text, x + fs * 0.45, y + ph / 2 + fs * 0.05);
+    }
+    function box(b, col, label, a, fs, lw) {
+      const { x, y, w, h } = b, c = Math.max(6, Math.min(w, h) * 0.28);
+      ctx.globalAlpha = a; ctx.strokeStyle = col; ctx.lineWidth = lw;
+      ctx.beginPath();
+      ctx.moveTo(x, y + c); ctx.lineTo(x, y); ctx.lineTo(x + c, y);
+      ctx.moveTo(x + w - c, y); ctx.lineTo(x + w, y); ctx.lineTo(x + w, y + c);
+      ctx.moveTo(x + w, y + h - c); ctx.lineTo(x + w, y + h); ctx.lineTo(x + w - c, y + h);
+      ctx.moveTo(x + c, y + h); ctx.lineTo(x, y + h); ctx.lineTo(x, y + h - c);
+      ctx.stroke();
+      ctx.globalAlpha = a * 0.4; ctx.lineWidth = lw * 0.5; ctx.strokeRect(x, y, w, h);
+      ctx.globalAlpha = a;
+      if (label) tag(label, x - lw / 2, y - fs * 1.55 - lw, col, '#1a1a2e', fs);
+      ctx.globalAlpha = 1;
+    }
+    const uiScale = () => W / Math.max(1, canvas.clientWidth);
+    function drawGroundOverlay() {
+      if (!query || qPhase !== 'active') return;
+      const lw = clamp(2 * uiScale(), 2, 5);
+      ctx.globalAlpha = Math.min(1, qT / 0.4);
+      if (query.kind === 'alert') {
+        const hot = alertAt && clock - alertAt < 3.8;
+        const zone = [[CROSS[0] - 6, 0.125], [CROSS[1] + 6, 0.125], [CROSS[1] + 6, 0.625], [CROSS[0] - 6, 0.625]].map(([x, z]) => [Xz(x, z), Yz(z)]);
+        ctx.fillStyle = hot ? `rgba(255,80,80,${(0.18 + 0.12 * Math.sin(clock * 12)).toFixed(3)})` : 'rgba(232,201,106,0.12)';
+        poly(ctx, zone);
+        ctx.setLineDash([lw * 5, lw * 4]); ctx.lineWidth = lw; ctx.strokeStyle = hot ? '#ff5d5d' : 'rgba(232,201,106,0.9)';
+        ctx.beginPath(); zone.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      if (query.kind === 'count') {
+        ctx.setLineDash([lw * 6, lw * 4]); ctx.lineWidth = lw * 1.5; ctx.strokeStyle = 'rgba(232,201,106,0.95)';
+        ctx.beginPath(); ctx.moveTo(Xz(COUNT_X, 0.375), Yz(0.375)); ctx.lineTo(Xz(COUNT_X, 0.64), Yz(0.64)); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.globalAlpha = 1;
+    }
+    function drawOverlay() {
+      const ui = uiScale(), fs = clamp(11 * ui, 11, 30), lw = clamp(1.8 * ui, 1.8, 5);
+      if (qPhase === 'scan') {
+        const y = (qT / 0.85) * (H + 160) - 80;
+        const gr = ctx.createLinearGradient(0, y - 90, 0, y);
+        gr.addColorStop(0, 'rgba(232,201,106,0)'); gr.addColorStop(1, 'rgba(232,201,106,0.28)');
+        ctx.fillStyle = gr; ctx.fillRect(0, y - 90, W, 90);
+        ctx.fillStyle = 'rgba(255,236,170,0.9)'; ctx.fillRect(0, y, W, lw);
+      }
+      if (!query || qPhase !== 'active') return;
+      const a0 = Math.min(1, qT / 0.4);
+      if (query.kind === 'count') { ctx.globalAlpha = a0; tag('COUNT LINE', Xz(COUNT_X, 0.64) + 8, Yz(0.64) - fs * 0.8, 'rgba(232,201,106,0.95)', '#1a1a2e', fs); }
+      if (query.kind === 'alert') {
+        ctx.globalAlpha = a0;
+        const hot = alertAt && clock - alertAt < 3.8;
+        tag(hot ? 'ALERT · CYCLIST IN ZONE' : 'WATCH ZONE', Xz(CROSS[0] - 6, 0.125), Yz(0.125) - fs * 1.9, hot ? '#ff5d5d' : 'rgba(232,201,106,0.95)', '#1a1a2e', fs);
+      }
+      ctx.globalAlpha = 1;
+      for (const e of [...peds, ...vehicles]) {
+        if (!query.match(e)) continue;
+        const b = bbox(e);
+        if (!onScreen(b)) continue;
+        if (!seen.has(e.id)) seen.set(e.id, clock);
+        const hot = query.kind === 'alert' && alertAt && e.id === alertTarget;
+        box(b, hot ? '#ff5d5d' : '#e8c96a', `${query.tag} ${e.conf.toFixed(2)}`, Math.min(1, (clock - seen.get(e.id)) / 0.3), fs, lw);
+      }
+      floats.forEach(f => {
+        ctx.globalAlpha = 1 - f.t / 1.2;
+        tag('+1', Xz(COUNT_X, f.z) + 10, Yz(f.z) - 70 * Sz(f.z) - f.t * 50, '#e8c96a', '#1a1a2e', fs * 1.3);
+      });
+      ctx.globalAlpha = 1;
+      if (query.kind === 'alert' && alertAt && clock - alertAt < 1.2) {
+        ctx.strokeStyle = `rgba(255,93,93,${(1 - (clock - alertAt) / 1.2).toFixed(3)})`;
+        ctx.lineWidth = 6 * ui; ctx.strokeRect(0, 0, W, H);
+      }
+    }
+
+    function draw() {
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+      ctx.drawImage(bg, 0, 0, W, H);
+      drawGroundOverlay();
+      [...vehicles, ...peds, ...POLES].sort((a, b) => a.z - b.z)
+        .forEach(e => e.type === 'ped' ? drawPed(e) : e.type === 'pole' ? drawPole(e) : drawVehicle(e));
+      if (snapReq) takeSnapshot();
+      drawOverlay();
+    }
+
+    // ── Result card ──
+    const card = $('lvCard'), cLabel = $('lvCardLabel'), cMeta = $('lvCardMeta'), cBig = $('lvCardBig');
+    const cText = $('lvCardText'), cRows = $('lvCardRows'), thumb = $('lvThumb'), tctx = thumb.getContext('2d');
+    const rows = (list) => list.map(([a, b]) => `<div class="lv-row"><span>${a}</span><b>${b}</b></div>`).join('');
+    // Snapshots are taken from the clean frame (before overlays) on the next draw
+    let snapReq = null;
+    const snapshot = (b, col) => { snapReq = { b, col: col || '#e8c96a' }; };
+    function takeSnapshot() {
+      const { b, col } = snapReq;
+      snapReq = null;
+      const cw = clamp(Math.max(b.w, b.h * 16 / 9) * 2.2, 280, W), ch = cw * 9 / 16;
+      const sx = clamp(b.x + b.w / 2 - cw / 2, 0, W - cw), sy = clamp(b.y + b.h / 2 - ch / 2, 0, H - ch);
+      const f = thumb.width / cw;
+      tctx.drawImage(canvas, sx * k, sy * k, cw * k, ch * k, 0, 0, thumb.width, thumb.height);
+      tctx.strokeStyle = col; tctx.lineWidth = 2;
+      tctx.strokeRect((b.x - sx) * f, (b.y - sy) * f, b.w * f, b.h * f);
+      thumb.classList.add('is-on');
+    }
+    function setIdleCard() {
+      card.classList.remove('is-alert');
+      cLabel.textContent = 'VideoRag'; cMeta.textContent = ''; cBig.textContent = '';
+      cText.textContent = 'Ask anything about this live feed.'; cRows.innerHTML = '';
+      thumb.classList.remove('is-on');
+    }
+    function updateCard() {
+      if (!query || qPhase !== 'active') return;
+      const vis = [...peds, ...vehicles].filter(e => query.match(e) && onScreen(bbox(e)))
+        .sort((a, b) => bbox(b).h - bbox(a).h);
+      const conf = vis.length ? Math.max(...vis.map(e => e.conf)).toFixed(2) : '—';
+      if (query.kind === 'track') {
+        cLabel.textContent = 'Tracking'; cMeta.textContent = `${vis.length} in view`;
+        cText.textContent = query.text(vis);
+        if (vis.length) snapshot(bbox(vis[0]));
+        cRows.innerHTML = rows([['Confidence', conf], ['Since', qStart], ['Source', 'CAM 07 · live']]);
+      } else if (query.kind === 'count') {
+        cLabel.textContent = 'Live count'; cMeta.textContent = `${vis.length} in view`;
+        cBig.textContent = String(count);
+        cText.textContent = `Yellow taxis heading east since ${qStart}.`;
+        cRows.innerHTML = rows([['Count line', 'Market St · EB'], ['Confidence', conf]]);
+      } else {
+        card.classList.toggle('is-alert', !!alertAt);
+        cLabel.textContent = alertAt ? 'Alert triggered' : 'Alert armed';
+        cMeta.textContent = alertAt ? alertTime : 'watching';
+        cText.textContent = alertAt
+          ? `A cyclist entered the crosswalk at ${alertTime}. A 10-second clip was saved.`
+          : 'Watching the crosswalk. You’ll be notified the moment a cyclist enters it.';
+        cRows.innerHTML = rows([['Zone', 'Crosswalk · CAM 07'], ['Status', alertAt ? 'Triggered' : 'Armed']]);
+      }
+    }
+
+    // ── Query sequencing (timed on the feed clock, so it pauses off-screen) ──
+    const ask = $('lvAsk'), qText = $('lvQuery'), tryRow = $('lvTry');
+    const chips = Q.map((item, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'vr-chip'; b.textContent = item.chip;
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => run(i));
+      tryRow.appendChild(b);
+      return b;
+    });
+    let runId = 0;
+    async function run(i) {
+      const id = ++runId, live = () => id === runId, item = Q[i];
+      chips.forEach((c, j) => c.setAttribute('aria-pressed', String(j === i)));
+      query = null; qPhase = 'idle'; count = 0; alertAt = 0; floats = []; seen = new Map();
+      card.classList.remove('is-show'); setIdleCard();
+      if (item.prep) item.prep();
+      ask.classList.add('is-typing');
+      if (reduce) qText.textContent = item.q;
+      else {
+        for (let n = 1; n <= item.q.length; n++) {
+          qText.textContent = item.q.slice(0, n);
+          await waitSim(0.028 + Math.random() * 0.03);
+          if (!live()) return;
+        }
+      }
+      await waitSim(0.38); if (!live()) return;
+      ask.classList.remove('is-typing');
+      query = item; qPhase = 'scan'; qT = 0;
+      if (!reduce) { await waitSim(0.85); if (!live()) return; }
+      qPhase = 'active'; qT = 0; qStart = fmt(new Date());
+      card.classList.add('is-show');
+      updateCard();
+      const t0 = clock;
+      while (true) {
+        await waitSim(0.2);
+        if (!live()) return;
+        const done = item.kind === 'alert' ? (alertAt && clock - alertAt > 3.8) || clock - t0 > item.dur : clock - t0 > item.dur;
+        if (done) break;
+      }
+      card.classList.remove('is-show'); qPhase = 'idle'; query = null;
+      await waitSim(0.7); if (!live()) return;
+      run((i + 1) % Q.length);
+    }
+
+    // ── Loop, sizing, film grain, clock ──
+    let running = false, started = false, last = 0, cardT = 0;
+    function frame(ts) {
+      if (!running) return;
+      const dt = Math.min(0.05, Math.max(0, (ts - last) / 1000)); last = ts;
+      clock += dt;
+      waiters = waiters.filter(w => { if (clock >= w.at) { w.res(); return false; } return true; });
+      if (!reduce) step(dt);
+      queryStep(dt);
+      draw();
+      cardT -= dt;
+      if (cardT <= 0) { cardT = 0.25; updateCard(); }
+      requestAnimationFrame(frame);
+    }
+    function resize() {
+      const cw = canvas.clientWidth || W;
+      k = clamp(cw * Math.min(2, window.devicePixelRatio || 1) / W, 0.5, 2);
+      canvas.width = Math.round(W * k); canvas.height = Math.round(H * k);
+      buildBg(); draw();
+    }
+    const noise = document.createElement('canvas');
+    noise.width = noise.height = 160;
+    const nctx = noise.getContext('2d'), nd = nctx.createImageData(160, 160);
+    for (let i = 0; i < nd.data.length; i += 4) { const v = Math.random() * 255 | 0; nd.data[i] = nd.data[i + 1] = nd.data[i + 2] = v; nd.data[i + 3] = 255; }
+    nctx.putImageData(nd, 0, 0);
+    $('lvGrain').style.backgroundImage = `url(${noise.toDataURL()})`;
+
+    const dateEl = $('lvDate'), timeEl = $('lvTime');
+    const tickClock = () => {
+      const d = new Date();
+      dateEl.textContent = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      timeEl.textContent = fmt(d);
+    };
+    tickClock(); setInterval(tickClock, 1000);
+
+    for (let i = 0; i < 600; i++) step(1 / 20); // warm up so the street is busy on first paint
+    resize();
+    if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+    else window.addEventListener('resize', resize);
+
+    new IntersectionObserver((entries) => {
+      const visible = entries.some(e => e.isIntersecting);
+      if (visible && !running) {
+        running = true; last = performance.now(); requestAnimationFrame(frame);
+        if (!started) { started = true; run(0); }
+      } else if (!visible) running = false;
+    }, { threshold: 0.15 }).observe(root);
   })();
 </script>
 </body>
