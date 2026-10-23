@@ -617,32 +617,6 @@
 
   .product-actions { display: flex; gap: 12px; }
 
-  /* ── LINEUP ── */
-  .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .lineup-card {
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 28px 28px 24px; position: relative; overflow: hidden;
-    background: var(--surface); transition: box-shadow 0.3s, transform 0.2s;
-  }
-  .lineup-card:hover { box-shadow: 0 8px 32px rgba(14,14,15,0.07); transform: translateY(-2px); }
-  .lineup-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  }
-  .card-purple::before { background: linear-gradient(90deg, var(--purple), #9b8eef); }
-  .card-teal::before { background: linear-gradient(90deg, var(--teal), #2db38a); }
-  .lineup-card-bg {
-    position: absolute; right: -20px; bottom: -20px; font-family: var(--serif);
-    font-size: 80px; color: rgba(14,14,15,0.04); pointer-events: none; font-style: italic;
-    letter-spacing: -2px;
-  }
-  .coming-tag {
-    display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--ink-4); border: 1px solid var(--border); border-radius: var(--radius-pill);
-    padding: 4px 12px; margin-bottom: 20px;
-  }
-  .lineup-name { font-family: var(--serif); font-size: 26px; font-style: italic; color: var(--ink); margin-bottom: 8px; }
-  .lineup-desc { font-size: 13px; color: var(--ink-3); line-height: 1.65; font-weight: 300; }
-
   /* ── MANIFESTO ── */
   .manifesto-wrap { background: var(--accent); margin: 0; padding: 72px 48px; position: relative; overflow: hidden; }
   .manifesto-wrap::before {
@@ -812,7 +786,6 @@
     .vr-cta h2 { font-size: 16px; }
     .vr-cta::before { font-size: 96px; bottom: -30px; }
     .features-grid { grid-template-columns: 1fr; }
-    .lineup-grid { grid-template-columns: 1fr; }
     .social-grid { grid-template-columns: 1fr; }
     .featured-top { flex-direction: column; }
     footer { padding: 24px; }
@@ -1311,25 +1284,6 @@
         </div>
       </div>
     </div>
-
-    <!-- LINEUP -->
-    <div style="margin-top: 48px; margin-bottom: 18px;">
-      <span class="label">Coming next</span>
-    </div>
-    <div class="lineup-grid">
-      <div class="lineup-card card-purple reveal reveal-delay-1">
-        <div class="lineup-card-bg">GathrX</div>
-        <div class="coming-tag">Coming soon</div>
-        <div class="lineup-name">GathrX</div>
-        <p class="lineup-desc">Rethinking how people coordinate around shared intent — events, communities, and collective momentum rebuilt from the ground up.</p>
-      </div>
-      <div class="lineup-card card-teal reveal reveal-delay-2">
-        <div class="lineup-card-bg">Extra</div>
-        <div class="coming-tag">Coming soon</div>
-        <div class="lineup-name">ExtraWork</div>
-        <p class="lineup-desc">The gig and side-work landscape is noise. ExtraWork connects genuine effort to genuine opportunity — no algorithm theatre, no dark patterns.</p>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -1423,24 +1377,6 @@
             <div>
               <a class="li-prod-name" href="https://www.ghoshla.com/" target="_blank" rel="noopener noreferrer">Ghoshla</a>
               <div class="li-prod-desc">Find your next nest · Home discovery, rebuilt · Live now</div>
-            </div>
-          </div>
-          <div class="li-prod-row">
-            <div class="li-prod-icon">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div>
-              <div class="li-prod-name">GathrX</div>
-              <div class="li-prod-desc">Collective coordination, rethought · Coming soon</div>
-            </div>
-          </div>
-          <div class="li-prod-row">
-            <div class="li-prod-icon">
-              <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            </div>
-            <div>
-              <div class="li-prod-name">ExtraWork</div>
-              <div class="li-prod-desc">Side-work meets real opportunity · Coming soon</div>
             </div>
           </div>
         </div>
