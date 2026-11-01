@@ -135,14 +135,33 @@
   }
 
   .try-bar {
-    display: flex; align-items: center; gap: 10px;
-    max-width: 580px; margin: 0 auto 20px; padding: 6px 6px 6px 18px;
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-pill);
-    box-shadow: 0 12px 40px -24px rgba(26,26,46,0.35);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative; display: flex; align-items: center; gap: 10px;
+    max-width: 580px; height: 52px; margin: 0 auto 20px; padding: 6px 6px 6px 18px;
+    background: #fff; border: 1px solid rgba(155,107,206,0.45); border-radius: var(--radius-pill);
+    box-shadow: 0 0 14px rgba(155,107,206,0.22);
+    transition: border-color 0.2s;
+    animation: try-flash 2.4s ease-in-out infinite;
   }
-  .try-bar:focus-within { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(232,201,106,0.2); }
-  .try-bar > svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--ink-3); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .try-bar:focus-within {
+    border-color: #be96f5; animation: none;
+    box-shadow: 0 0 0 4px rgba(190,150,245,0.25), 0 0 26px 4px rgba(155,107,206,0.35);
+  }
+  @keyframes try-flash {
+    0%, 100% { box-shadow: 0 0 14px rgba(155,107,206,0.22); }
+    50% { box-shadow: 0 0 24px 3px rgba(155,107,206,0.38); }
+  }
+  .try-bar-beam {
+    position: absolute; top: -1px; left: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
+    overflow: visible; pointer-events: none;
+    filter: drop-shadow(0 0 3px #be96f5) drop-shadow(0 0 8px #9b6bce);
+  }
+  .try-bar-beam rect {
+    fill: none; stroke: #9b6bce; stroke-width: 2.5; stroke-linecap: round;
+    stroke-dasharray: 22 28;
+    animation: try-beam 5s linear infinite;
+  }
+  @keyframes try-beam { to { stroke-dashoffset: -50; } }
+  .try-bar-icon { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--ink-3); fill: none; stroke-width: 2; stroke-linecap: round; }
   .try-bar-tag { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; padding-right: 10px; border-right: 1px solid var(--border); }
   .try-bar input {
     flex: 1; min-width: 0; border: none; outline: none; background: transparent;
@@ -777,6 +796,7 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     .reveal { opacity: 1; transform: none; }
+    .try-bar-beam { display: none; }
   }
 
   /* ── RESPONSIVE ── */
@@ -817,7 +837,7 @@
     .hero { padding: 48px 16px 28px; }
     .hero h1 { font-size: 18px; }
     .try-bar { padding-left: 14px; }
-    .try-bar > svg { display: none; }
+    .try-bar-icon { display: none; }
     .try-bar .btn-dark { padding: 10px 16px; }
     .hero-stage { padding: 0 16px 56px; }
     .section, .section-sm { padding: 44px 16px; }
@@ -863,7 +883,8 @@
   <h1>Ask your cameras<br><em>anything</em></h1>
   <p class="hero-desc">VideoRag turns live and recorded video into answers. Ask in plain language — a person, a vehicle, a behavior — and it finds, tracks, counts or alerts in seconds, with every moment timestamped and cited.</p>
   <form class="try-bar" action="/re-Inspect" method="get" role="search" aria-label="Try Re-Inspect">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+    <svg class="try-bar-beam" aria-hidden="true"><rect width="100%" height="100%" rx="26" pathLength="100"/></svg>
+    <svg class="try-bar-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
     <span class="try-bar-tag">Re-Inspect</span>
     <input type="text" name="q" placeholder="Where is the red car?" aria-label="Ask Re-Inspect about a video" autocomplete="off">
     <button type="submit" class="btn-dark">Try now →</button>
