@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/re-Inspect", "destination": "https://v-rag-ui.vercel.app/" },
+    { "source": "/re-inspect", "destination": "https://v-rag-ui.vercel.app/" },
+    { "source": "/assets/:path*", "destination": "https://v-rag-ui.vercel.app/assets/:path*" },
+    { "source": "/api-proxy/:path*", "destination": "https://v-rag-ui.vercel.app/api-proxy/:path*" }
+  ]
+}

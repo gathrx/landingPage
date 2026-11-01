@@ -134,6 +134,23 @@
     max-width: 580px; margin: 0 auto 36px; font-weight: 300;
   }
 
+  .try-bar {
+    display: flex; align-items: center; gap: 10px;
+    max-width: 580px; margin: 0 auto 20px; padding: 6px 6px 6px 18px;
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-pill);
+    box-shadow: 0 12px 40px -24px rgba(26,26,46,0.35);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .try-bar:focus-within { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(232,201,106,0.2); }
+  .try-bar > svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--ink-3); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .try-bar-tag { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; padding-right: 10px; border-right: 1px solid var(--border); }
+  .try-bar input {
+    flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+    font-family: var(--sans); font-size: 16px; color: var(--ink);
+  }
+  .try-bar input::placeholder { color: var(--ink-4); }
+  .try-bar .btn-dark { flex-shrink: 0; padding: 10px 22px; white-space: nowrap; }
+
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
   .btn-dark {
@@ -799,6 +816,9 @@
     .eyebrow-extra { display: none; }
     .hero { padding: 48px 16px 28px; }
     .hero h1 { font-size: 18px; }
+    .try-bar { padding-left: 14px; }
+    .try-bar > svg { display: none; }
+    .try-bar .btn-dark { padding: 10px 16px; }
     .hero-stage { padding: 0 16px 56px; }
     .section, .section-sm { padding: 44px 16px; }
     .dark-band { padding: 48px 16px; }
@@ -842,6 +862,12 @@
   <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Introducing <strong>VideoRag</strong><span class="eyebrow-extra"> · Video intelligence</span></div>
   <h1>Ask your cameras<br><em>anything</em></h1>
   <p class="hero-desc">VideoRag turns live and recorded video into answers. Ask in plain language — a person, a vehicle, a behavior — and it finds, tracks, counts or alerts in seconds, with every moment timestamped and cited.</p>
+  <form class="try-bar" action="/re-Inspect" method="get" role="search" aria-label="Try Re-Inspect">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+    <span class="try-bar-tag">Re-Inspect</span>
+    <input type="text" name="q" placeholder="Where is the red car?" aria-label="Ask Re-Inspect about a video" autocomplete="off">
+    <button type="submit" class="btn-dark">Try now →</button>
+  </form>
   <div class="hero-actions">
     <a href="#early-access" class="btn-dark">Request early access →</a>
     <a href="#how" class="btn-ghost">See how it works</a>
